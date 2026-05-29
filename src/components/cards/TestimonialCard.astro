@@ -1,0 +1,59 @@
+---
+interface Props {
+  quote: string;
+  name: string;
+  role: string;
+  rating?: number;
+}
+const { quote, name, role, rating = 5 } = Astro.props;
+const stars = Array.from({ length: 5 }, (_, i) => i < rating);
+---
+<figure class="tcard">
+  <div class="tcard__stars" aria-label={`${rating} out of 5 stars`}>
+    {stars.map((on) => (
+      <svg viewBox="0 0 24 24" width="18" height="18" class={on ? 'on' : ''} aria-hidden="true">
+        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+      </svg>
+    ))}
+  </div>
+  <blockquote class="tcard__quote">{quote}</blockquote>
+  <figcaption class="tcard__cap">
+    <span class="tcard__name">{name}</span>
+    <span class="tcard__role">{role}</span>
+  </figcaption>
+</figure>
+
+<style>
+  .tcard {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    height: 100%;
+    margin: 0;
+    box-shadow: var(--shadow-sm);
+    transition: box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .tcard:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+  .tcard__stars { display: flex; gap: 0.2rem; margin-bottom: var(--space-4); }
+  .tcard__stars svg { fill: var(--line-strong); }
+  .tcard__stars svg.on { fill: var(--gold); }
+  .tcard__quote {
+    color: var(--ink);
+    line-height: 1.65;
+    flex-grow: 1;
+    margin: 0;
+  }
+  .tcard__cap {
+    margin-top: var(--space-5);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--line);
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+  .tcard__name { font-weight: 600; color: var(--ink); }
+  .tcard__role { font-size: var(--fs-sm); color: var(--muted); }
+</style>

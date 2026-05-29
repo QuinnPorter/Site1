@@ -1,0 +1,107 @@
+---
+interface Props {
+  href?: string;
+  variant?: 'primary' | 'secondary' | 'ghost' | 'gold' | 'white';
+  size?: 'sm' | 'md' | 'lg';
+  type?: 'button' | 'submit' | 'reset';
+  external?: boolean;
+  class?: string;
+  [key: string]: any;
+}
+
+const {
+  href,
+  variant = 'primary',
+  size = 'md',
+  type = 'button',
+  external = false,
+  class: className = '',
+  ...rest
+} = Astro.props;
+
+const Tag = href ? 'a' : 'button';
+const cls = `btn btn--${variant} btn--${size} ${className}`.trim();
+const extra = href
+  ? external
+    ? { href, target: '_blank', rel: 'noopener noreferrer' }
+    : { href }
+  : { type };
+---
+
+<Tag class={cls} {...extra} {...rest}>
+  <span class="btn__label"><slot /></span>
+</Tag>
+
+<style>
+  .btn {
+    --btn-bg: var(--accent);
+    --btn-fg: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    font-family: var(--font-sans);
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    border-radius: var(--radius-md);
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 1.5px solid transparent;
+    transition: background var(--dur) var(--ease), color var(--dur) var(--ease), border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease), filter var(--dur) var(--ease);
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  .btn--sm { padding: 0.55rem 1rem; font-size: var(--fs-sm); }
+  .btn--md { padding: 0.75rem 1.5rem; font-size: var(--fs-base); }
+  .btn--lg { padding: 0.95rem 1.85rem; font-size: var(--fs-base); }
+
+  .btn--primary {
+    background: var(--btn-accent-grad);
+    border-color: rgba(10, 19, 34, 0.16);
+    box-shadow: var(--btn-accent-shadow);
+  }
+  .btn--primary:hover {
+    filter: brightness(1.08);
+    box-shadow: var(--btn-accent-shadow-hover);
+    transform: translateY(-1px);
+  }
+  .btn--primary:active {
+    filter: brightness(0.97);
+    transform: translateY(0);
+    box-shadow:
+      0 1px 1px rgba(10, 19, 34, 0.20),
+      inset 0 1px 3px rgba(10, 19, 34, 0.28);
+  }
+
+  .btn--secondary {
+    background: transparent;
+    color: var(--ink);
+    border-color: var(--line-strong);
+  }
+  .btn--secondary:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: var(--accent-soft);
+  }
+
+  .btn--ghost {
+    background: transparent;
+    color: var(--accent);
+    padding-inline: 0.5rem;
+  }
+  .btn--ghost:hover { color: var(--accent-hover); }
+
+  .btn--gold {
+    background: var(--gold);
+    color: #fff;
+  }
+  .btn--gold:hover { filter: brightness(0.96); }
+
+  .btn--white {
+    background: #fff;
+    color: var(--ink);
+  }
+  .btn--white:hover { background: var(--navy-50); }
+</style>

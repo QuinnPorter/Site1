@@ -1,0 +1,24 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  accent?: string;
+  align?: 'center' | 'left';
+  class?: string;
+}
+const { eyebrow, title, accent, align = 'center', class: className = '' } = Astro.props;
+---
+<div class={`secheading secheading--${align} ${className}`.trim()}>
+  {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+  <h2>{title}{accent && <> <span class="secheading__accent">{accent}</span></>}</h2>
+  {Astro.slots.has('default') && <p class="secheading__sub lead">{<slot />}</p>}
+</div>
+
+<style>
+  .secheading__accent { color: var(--accent); }
+  .secheading--center { text-align: center; max-width: 720px; margin-inline: auto; }
+  .secheading .eyebrow { margin-bottom: var(--space-3); }
+  .secheading h2 { margin-bottom: 0; }
+  .secheading__sub { margin-top: var(--space-4); }
+  .secheading--center .secheading__sub { margin-inline: auto; }
+</style>

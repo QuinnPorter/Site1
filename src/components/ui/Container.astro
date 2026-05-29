@@ -1,0 +1,12 @@
+---
+interface Props {
+  size?: 'default' | 'narrow' | 'wide';
+  as?: string;
+  class?: string;
+}
+const { size = 'default', as: Tag = 'div', class: className = '' } = Astro.props;
+const sizeClass = size === 'default' ? '' : size;
+---
+<Tag class={`container ${sizeClass} ${className}`.trim()}>
+  <slot />
+</Tag>

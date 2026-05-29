@@ -1,0 +1,52 @@
+---
+import Icon from '@components/ui/Icon.astro';
+
+interface Props {
+  icon?: string;
+  title: string;
+  summary: string;
+  href?: string;
+  learnMore?: string;
+}
+const { icon, title, summary, href, learnMore } = Astro.props;
+const Tag = href ? 'a' : 'div';
+const attrs = href ? { href } : {};
+---
+<Tag class={`scard ${href ? 'scard--link' : ''}`} {...attrs}>
+  {icon && <span class="scard__icon"><Icon name={icon} size={22} /></span>}
+  <h3 class="scard__title">{title}</h3>
+  <p class="scard__summary">{summary}</p>
+  {href && learnMore && (
+    <span class="scard__more">{learnMore} <Icon name="arrow-right" size={15} /></span>
+  )}
+</Tag>
+
+<style>
+  .scard {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+    height: 100%;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease), border-color var(--dur) var(--ease);
+  }
+  .scard--link:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--navy-100); }
+  .scard__icon {
+    display: grid;
+    place-items: center;
+    width: 52px; height: 52px;
+    border-radius: var(--radius-md);
+    background: var(--grad-swoosh);
+    color: #fff;
+    margin-bottom: var(--space-4);
+  }
+  .scard__title { margin-bottom: var(--space-3); }
+  .scard__summary { color: var(--muted); font-size: var(--fs-sm); line-height: 1.65; flex-grow: 1; }
+  .scard__more {
+    display: inline-flex; align-items: center; gap: 0.4rem;
+    margin-top: var(--space-5); color: var(--accent); font-weight: 600; font-size: var(--fs-sm);
+  }
+</style>

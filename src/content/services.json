@@ -1,0 +1,74 @@
+[
+  {
+    "id": "w2-employees",
+    "audience": "individual",
+    "icon": "user",
+    "order": 1,
+    "href": "/tax-services",
+    "title": { "en": "W-2 Employees", "es": "Empleados W-2" },
+    "summary": {
+      "en": "Full-time employees who want accuracy, speed, and every legitimate deduction — done right the first time.",
+      "es": "Empleados de tiempo completo que quieren precisión, rapidez y cada deducción legítima — bien hecho a la primera."
+    }
+  },
+  {
+    "id": "real-estate",
+    "audience": "individual",
+    "icon": "home",
+    "order": 2,
+    "href": "/tax-services",
+    "title": { "en": "Real Estate Investors", "es": "Inversionistas de Bienes Raíces" },
+    "summary": {
+      "en": "Schedule E, rental income, depreciation, and pass-through deductions — all handled with precision.",
+      "es": "Schedule E, ingresos por alquiler, depreciación y deducciones de traspaso — todo manejado con precisión."
+    }
+  },
+  {
+    "id": "freelancers-1099",
+    "audience": "individual",
+    "icon": "trending-up",
+    "order": 3,
+    "href": "/tax-services",
+    "title": { "en": "Freelancers & 1099s", "es": "Freelancers y 1099" },
+    "summary": {
+      "en": "Schedule C, self-employment tax, home office, equipment — we help you pay only what you owe.",
+      "es": "Schedule C, impuesto de trabajo independiente, oficina en casa, equipo — te ayudamos a pagar solo lo que debes."
+    }
+  },
+  {
+    "id": "small-business",
+    "audience": "business",
+    "icon": "briefcase",
+    "order": 4,
+    "href": "/business-tax-services",
+    "title": { "en": "Small Business Owners", "es": "Dueños de Pequeñas Empresas" },
+    "summary": {
+      "en": "From forming an LLC to establishing your business, we help you navigate taxes and maximize deductions.",
+      "es": "Desde formar un LLC hasta establecer tu negocio, te ayudamos a navegar los impuestos y maximizar deducciones."
+    }
+  },
+  {
+    "id": "bookkeeping",
+    "audience": "business",
+    "icon": "calculator",
+    "order": 5,
+    "href": "/controller-services",
+    "title": { "en": "Bookkeeping & Controllership", "es": "Contabilidad y Control Financiero" },
+    "summary": {
+      "en": "Clean monthly books, reconciliations, and reporting — plus fractional controller support as you scale.",
+      "es": "Libros mensuales impecables, conciliaciones e informes — más apoyo de controller fraccional a medida que creces."
+    }
+  },
+  {
+    "id": "business-tax",
+    "audience": "business",
+    "icon": "building",
+    "order": 6,
+    "href": "/business-tax-services",
+    "title": { "en": "Business Tax Filing", "es": "Declaración de Impuestos de Empresas" },
+    "summary": {
+      "en": "S-corp, partnership, and corporate returns filed on time, with proactive planning to lower your bill.",
+      "es": "Declaraciones de S-corp, sociedades y corporaciones presentadas a tiempo, con planificación proactiva para reducir tu factura."
+    }
+  }
+]

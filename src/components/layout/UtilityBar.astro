@@ -1,0 +1,57 @@
+---
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { EXTERNAL } from '@data/site';
+import LanguagePicker from './LanguagePicker.astro';
+import Icon from '@components/ui/Icon.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const links = [
+  { label: t('utility.book'), href: EXTERNAL.booking, icon: 'clock' },
+  { label: t('utility.pay'), href: EXTERNAL.payment, icon: 'briefcase' },
+  { label: t('utility.portal'), href: EXTERNAL.portal, icon: 'user' },
+];
+---
+<div class="utilbar">
+  <div class="container utilbar__inner">
+    <div class="utilbar__links">
+      {links.map((l) => (
+        <a href={l.href} target="_blank" rel="noopener noreferrer" class="utilbar__link">
+          <Icon name={l.icon} size={14} />
+          <span>{l.label}</span>
+        </a>
+      ))}
+    </div>
+    <LanguagePicker variant="light" />
+  </div>
+</div>
+
+<style>
+  .utilbar {
+    background: var(--dark);
+    color: var(--on-navy);
+    min-height: var(--utility-h);
+    font-size: var(--fs-sm);
+  }
+  .utilbar__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-4);
+    min-height: var(--utility-h);
+  }
+  .utilbar__links { display: flex; gap: var(--space-5); flex-wrap: wrap; }
+  .utilbar__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--on-navy-muted);
+    font-weight: 500;
+    transition: color var(--dur) var(--ease);
+  }
+  .utilbar__link:hover { color: #fff; }
+  @media (max-width: 640px) {
+    .utilbar__link span { display: none; }
+    .utilbar__links { gap: var(--space-4); }
+  }
+</style>

@@ -1,0 +1,27 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/sections/Hero.astro';
+import AwardFeature from '@components/sections/AwardFeature.astro';
+import TestimonialsGrid from '@components/sections/TestimonialsGrid.astro';
+import BilingualHighlight from '@components/sections/BilingualHighlight.astro';
+import ServicesIntro from '@components/sections/ServicesIntro.astro';
+---
+<BaseLayout>
+  <Hero
+    eyebrow="Xero Large Firm of the Year 2025"
+    title="The tax firm that"
+    accent="gets the full picture"
+    lead="Tax and accounting for individuals, families, and growing businesses — in all 50 states. Twenty years in, fully bilingual, and a team that actually picks up the phone."
+    primary={{ label: 'Book your tax appointment', href: '/contact' }}
+    secondary={{ label: 'Explore services', href: '/services' }}
+    stats={[
+      { value: '20+', label: 'Years of expertise' },
+      { value: 'All 50', label: 'States served' },
+      { value: '100%', label: 'Bilingual support' },
+    ]}
+  />
+  <AwardFeature />
+  <TestimonialsGrid />
+  <BilingualHighlight />
+  <ServicesIntro />
+</BaseLayout>

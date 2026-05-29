@@ -1,0 +1,117 @@
+:root {
+  /* ---- Dark / neutral scale (header bar, footer, dark zone) ---- */
+  --navy-900: #0a1322; /* dark zone / footer */
+  --navy-800: #0d1726; /* utility bar */
+  --navy-700: #1f2a3d; /* strong text on light */
+  --navy-600: #1e3a5f; /* == accent */
+  --navy-500: #3a5a82;
+  --navy-400: #647488;
+  --navy-300: #8a97a8; /* cool grey */
+  --navy-200: #d6deea; /* strong hairline */
+  --navy-100: #e6eaf0; /* hairline */
+  --navy-50:  #f6f9fc; /* cool pale fill */
+
+  /* ---- Accent: a single deep navy blue, small use only ---- */
+  --blue-700: #152b46;
+  --blue-600: #1a3354;
+  --blue-500: #1e3a5f;
+  --blue-400: #3a5a82;
+  --teal-600: #1e3a5f;
+  --teal-500: #1e3a5f;
+  --teal-400: #9db4cf; /* light accent for dark backgrounds */
+
+  --accent: #1e3a5f;        /* primary interactive */
+  --accent-hover: #16304f;
+  --accent-soft: #eef2f9;
+
+  /* ---- Accent button polish (sleek SaaS fill) ---- */
+  --btn-accent-grad: linear-gradient(180deg, #2b4d79 0%, #1e3a5f 100%);
+  --btn-accent-shadow:
+    0 1px 1px rgba(10, 19, 34, 0.16),
+    0 2px 6px rgba(30, 58, 95, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.13);
+  --btn-accent-shadow-hover:
+    0 2px 4px rgba(10, 19, 34, 0.18),
+    0 8px 18px rgba(30, 58, 95, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.17);
+
+  /* ---- Amber (testimonial stars only) ---- */
+  --terracotta: #1e3a5f;
+  --terracotta-deep: #152b46;
+  --gold: #e0a83b;
+
+  /* ---- Crisp cool surfaces ---- */
+  --bg: #ffffff;
+  --bg-alt: #f6f9fc;    /* cool light section */
+  --surface: #ffffff;
+  --surface-2: #fbfcfe;
+  --cream: #f6f9fc;     /* cool light panel */
+
+  /* ---- Text ---- */
+  --ink: #0a1322;
+  --heading: #0a1322;
+  --muted: #5b6b80;     /* cool grey */
+  --on-navy: #eef2f8;
+  --on-navy-muted: #9aa7ba;
+  --line: #e6eaf0;
+  --line-strong: #d6deea;
+
+  --dark: #0a1322;
+
+  /* ---- Subtle gradient washes (tasteful, low intensity) ---- */
+  --grad-wash: radial-gradient(120% 80% at 50% -10%, #f1f6ff 0%, #ffffff 55%);
+  --grad-wash-soft: linear-gradient(180deg, #ffffff 0%, #f6f9fc 100%);
+
+  /* ---- Spacing (4px base) ---- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* ---- Radii ---- */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 999px;
+
+  /* ---- Shadows (used sparingly) ---- */
+  --shadow-sm: 0 1px 2px rgba(23, 24, 28, 0.05);
+  --shadow-md: 0 4px 16px rgba(23, 24, 28, 0.07);
+  --shadow-lg: 0 12px 36px rgba(23, 24, 28, 0.10);
+
+  /* ---- Typography ---- */
+  --font-display: 'Geist Variable', 'Inter Variable', system-ui, -apple-system, sans-serif;
+  --font-sans: 'Inter Variable', 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+
+  --fs-xs: 0.8125rem;
+  --fs-sm: 0.9375rem;
+  --fs-base: 1.0625rem;
+  --fs-lg: clamp(1.125rem, 1rem + 0.5vw, 1.25rem);
+  --fs-xl: clamp(1.375rem, 1.1rem + 1vw, 1.75rem);
+  --fs-2xl: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
+  --fs-3xl: clamp(2.25rem, 1.5rem + 3vw, 3.5rem);
+  --fs-hero: clamp(2.5rem, 1.9rem + 3.4vw, 4rem);
+
+  --lh-tight: 1.12;
+  --lh-snug: 1.25;
+  --lh-normal: 1.65;
+
+  /* ---- Layout ---- */
+  --container: 1200px;
+  --container-narrow: 760px;
+  --container-wide: 1360px;
+  --header-h: 76px;
+  --utility-h: 44px;
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur: 0.2s;
+  --dur-slow: 0.4s;
+}

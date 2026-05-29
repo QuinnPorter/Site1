@@ -1,0 +1,32 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations, localizePath } from '@i18n/utils';
+import AudienceCard from '@components/cards/AudienceCard.astro';
+
+interface Props {
+  ids?: string[];
+  numbered?: boolean;
+}
+const { ids, numbered = true } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const all = (await getCollection('services')).sort((a, b) => a.data.order - b.data.order);
+const items = ids ? ids.map((id) => all.find((s) => s.id === id)).filter(Boolean) : all;
+---
+<div class="acards grid grid-4">
+  {items.map((s, i) => (
+    <AudienceCard
+      index={numbered ? i + 1 : undefined}
+      icon={s!.data.icon}
+      title={s!.data.title[lang]}
+      summary={s!.data.summary[lang]}
+      href={localizePath(s!.data.href, lang)}
+      learnMore={t('cta.learnMore')}
+    />
+  ))}
+</div>
+
+<style>
+  .acards { margin-top: var(--space-6); }
+</style>

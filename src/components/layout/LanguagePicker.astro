@@ -1,0 +1,37 @@
+---
+import { getLangFromUrl, alternatePath } from '@i18n/utils';
+import Icon from '@components/ui/Icon.astro';
+
+interface Props {
+  variant?: 'dark' | 'light';
+}
+const { variant = 'dark' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const enHref = lang === 'en' ? Astro.url.pathname : alternatePath(Astro.url, 'en');
+const esHref = lang === 'es' ? Astro.url.pathname : alternatePath(Astro.url, 'es');
+---
+<div class={`langpicker langpicker--${variant}`} role="group" aria-label="Language">
+  <Icon name="globe" size={15} />
+  <a href={enHref} aria-current={lang === 'en' ? 'true' : undefined} class={lang === 'en' ? 'is-active' : ''}>EN</a>
+  <span class="sep" aria-hidden="true">/</span>
+  <a href={esHref} aria-current={lang === 'es' ? 'true' : undefined} class={lang === 'es' ? 'is-active' : ''}>ES</a>
+</div>
+
+<style>
+  .langpicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: var(--fs-sm);
+    font-weight: 600;
+  }
+  .langpicker a {
+    color: inherit;
+    opacity: 0.6;
+    transition: opacity var(--dur) var(--ease);
+    padding: 0.1rem 0.15rem;
+  }
+  .langpicker a:hover { opacity: 1; }
+  .langpicker a.is-active { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
+  .sep { opacity: 0.4; }
+</style>

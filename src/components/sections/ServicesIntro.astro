@@ -1,0 +1,39 @@
+---
+import { getLangFromUrl, useTranslations, localizePath } from '@i18n/utils';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import AudienceCards from './AudienceCards.astro';
+import Icon from '@components/ui/Icon.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const copy = {
+  en: {
+    eyebrow: 'Who We Work With',
+    title: 'Find where you fit',
+    body: 'From a straightforward W-2 return to rental income, freelancing, and small-business books — we cover the range. Run a company?',
+    link: 'See business services',
+  },
+  es: {
+    eyebrow: 'Con Quién Trabajamos',
+    title: 'Encuentra dónde encajas',
+    body: 'Desde una declaración W-2 sencilla hasta ingresos por alquiler, trabajo independiente y contabilidad de pequeñas empresas — lo cubrimos todo. ¿Tienes una empresa?',
+    link: 'Ver servicios para empresas',
+  },
+}[lang];
+---
+<section class="svc">
+  <div class="container">
+    <SectionHeading eyebrow={copy.eyebrow} title={copy.title}>
+      {copy.body}{' '}
+      <a href={localizePath('/business-tax-services', lang)} class="svc__link">
+        {copy.link} <Icon name="arrow-right" size={14} />
+      </a>
+    </SectionHeading>
+    <AudienceCards ids={['w2-employees', 'real-estate', 'freelancers-1099', 'small-business']} numbered={false} />
+  </div>
+</section>
+
+<style>
+  .svc { background: var(--bg-alt); padding-block: var(--space-9); }
+  .svc__link { color: var(--accent); font-weight: 600; white-space: nowrap; display: inline-flex; align-items: center; gap: 0.3rem; }
+</style>

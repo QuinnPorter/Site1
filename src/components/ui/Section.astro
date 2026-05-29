@@ -1,0 +1,62 @@
+---
+interface Props {
+  bg?: 'default' | 'alt' | 'surface' | 'navy' | 'cream' | 'gradient';
+  size?: 'sm' | 'md' | 'lg';
+  container?: 'default' | 'narrow' | 'wide' | false;
+  id?: string;
+  class?: string;
+}
+const {
+  bg = 'default',
+  size = 'md',
+  container = 'default',
+  id,
+  class: className = '',
+} = Astro.props;
+---
+<section class={`section section--${bg} section--${size} ${className}`.trim()} id={id}>
+  {bg === 'navy' && <span class="section__glow" aria-hidden="true"></span>}
+  {
+    container ? (
+      <div class={`container ${container === 'default' ? '' : container}`.trim()}>
+        <slot />
+      </div>
+    ) : (
+      <slot />
+    )
+  }
+</section>
+
+<style>
+  .section {
+    position: relative;
+    isolation: isolate;
+  }
+  .section--sm { padding-block: var(--space-7); }
+  .section--md { padding-block: var(--space-8); }
+  .section--lg { padding-block: var(--space-9); }
+
+  .section--default { background: var(--bg); }
+  .section--surface { background: var(--surface); }
+  .section--alt { background: var(--bg-alt); }
+  .section--cream { background: var(--cream); }
+  .section--navy {
+    background: var(--grad-navy);
+    color: var(--on-navy);
+  }
+  .section--gradient { background: var(--grad-soft); }
+
+  .section--navy :global(h1),
+  .section--navy :global(h2),
+  .section--navy :global(h3),
+  .section--navy :global(h4) { color: #fff; }
+  .section--navy :global(p) { color: var(--on-navy-muted); }
+
+  .section__glow {
+    position: absolute;
+    inset: 0;
+    background: var(--grad-glow);
+    z-index: -1;
+    pointer-events: none;
+  }
+</style>

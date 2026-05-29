@@ -1,0 +1,94 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import Icon from '@components/ui/Icon.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Xero Partner Awards 2025',
+    titleA: 'Named',
+    titleB: 'Large Firm of the Year.',
+    body: "JBS is a Xero Platinum Partner and the 2025 winner of Xero's Partner Award for Large Firm of the Year — recognition of how we work: deep technical expertise paired with a team that treats your finances like they matter.",
+    points: ['Xero Platinum Partner', 'Award-winning advisory', 'Bilingual service in all 50 states'],
+    panelLabel: 'Xero Partner Award',
+    panelName: 'Large Firm of the Year',
+  },
+  es: {
+    eyebrow: 'Premios Xero Partner 2025',
+    titleA: 'Nombrada',
+    titleB: 'Gran Firma del Año.',
+    body: 'JBS es Xero Platinum Partner y ganadora en 2025 del Premio Xero a la Gran Firma del Año — un reconocimiento a nuestra forma de trabajar: profunda experiencia técnica junto a un equipo que trata tus finanzas como lo que son, importantes.',
+    points: ['Xero Platinum Partner', 'Asesoría premiada', 'Servicio bilingüe en los 50 estados'],
+    panelLabel: 'Premio Xero Partner',
+    panelName: 'Gran Firma del Año',
+  },
+}[lang];
+---
+<section class="award">
+  <div class="container award__grid">
+    <div class="award__panel">
+      <span class="award__year">2025</span>
+      <span class="award__panel-label">{copy.panelLabel}</span>
+      <span class="award__panel-name">{copy.panelName}</span>
+    </div>
+    <div class="award__body">
+      <span class="eyebrow">{copy.eyebrow}</span>
+      <h2 class="award__title">{copy.titleA} <em>{copy.titleB}</em></h2>
+      <p>{copy.body}</p>
+      <ul class="award__points">
+        {copy.points.map((p) => (
+          <li><Icon name="check-circle" size={18} /> {p}</li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .award { background: var(--surface); padding-block: var(--space-9); border-bottom: 1px solid var(--line); }
+  .award__grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: clamp(var(--space-6), 5vw, var(--space-8));
+    align-items: center;
+  }
+  .award__panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-7) var(--space-6);
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+  }
+  .award__year {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 2rem + 4vw, 4.5rem);
+    font-weight: 600;
+    line-height: 1;
+    color: var(--ink);
+  }
+  .award__panel-label {
+    font-size: var(--fs-sm);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-top: var(--space-3);
+  }
+  .award__panel-name { font-family: var(--font-display); font-size: var(--fs-xl); color: var(--heading); }
+
+  .award__body .eyebrow { margin-bottom: var(--space-3); }
+  .award__title { font-size: var(--fs-2xl); margin: 0 0 var(--space-4); }
+  .award__title em { font-style: italic; color: var(--accent); }
+  .award__body p { color: var(--muted); line-height: 1.7; max-width: 56ch; }
+  .award__points { display: flex; flex-direction: column; gap: 0.6rem; margin-top: var(--space-5); }
+  .award__points li { display: flex; align-items: center; gap: 0.6rem; font-weight: 500; color: var(--ink); }
+  .award__points :global(svg) { color: var(--accent); flex-shrink: 0; }
+
+  @media (max-width: 860px) {
+    .award__grid { grid-template-columns: 1fr; }
+    .award__panel { align-items: flex-start; }
+  }
+</style>

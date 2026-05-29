@@ -1,0 +1,74 @@
+[
+  {
+    "id": "sultan-a",
+    "name": "Sultan A.",
+    "rating": 5,
+    "featured": true,
+    "lang": "en",
+    "role": { "en": "Individual Tax Client", "es": "Cliente de Impuestos Individual" },
+    "quote": {
+      "en": "Alex and Jean were incredibly knowledgeable and took the time to walk me through each step. What can often be a stressful experience felt manageable and even enlightening.",
+      "es": "Alex y Jean fueron increíblemente competentes y se tomaron el tiempo de explicarme cada paso. Lo que suele ser una experiencia estresante se sintió manejable e incluso esclarecedor."
+    }
+  },
+  {
+    "id": "sevgi-g",
+    "name": "Sevgi G.",
+    "rating": 5,
+    "featured": true,
+    "lang": "en",
+    "role": { "en": "Individual Tax Client", "es": "Cliente de Impuestos Individual" },
+    "quote": {
+      "en": "I was overwhelmed after a bad experience elsewhere. Jean Paul was professional and made me feel at ease immediately. He handled my return and my children's with complete accuracy.",
+      "es": "Estaba abrumada después de una mala experiencia en otro lugar. Jean Paul fue profesional y me tranquilizó de inmediato. Manejó mi declaración y la de mis hijos con total precisión."
+    }
+  },
+  {
+    "id": "xaviar-v",
+    "name": "Xaviar V.",
+    "rating": 5,
+    "featured": true,
+    "lang": "en",
+    "role": { "en": "Individual Tax Client", "es": "Cliente de Impuestos Individual" },
+    "quote": {
+      "en": "JBS makes you feel like you're part of the family. Always responsive, always finding solutions. They go above and beyond for every single client, every single time.",
+      "es": "JBS te hace sentir parte de la familia. Siempre receptivos, siempre encontrando soluciones. Hacen todo lo posible por cada cliente, siempre."
+    }
+  },
+  {
+    "id": "jatashaly",
+    "name": "Jatashaly",
+    "rating": 5,
+    "featured": false,
+    "lang": "es",
+    "role": { "en": "Individual Tax Client", "es": "Cliente de Impuestos Individual" },
+    "quote": {
+      "en": "The best company to do your taxes.",
+      "es": "La mejor compañía para hacer tus taxes."
+    }
+  },
+  {
+    "id": "maria-r",
+    "name": "Maria R.",
+    "rating": 5,
+    "featured": false,
+    "lang": "en",
+    "role": { "en": "Small Business Owner", "es": "Dueña de Pequeña Empresa" },
+    "quote": {
+      "en": "Switching our bookkeeping to JBS was the best decision we made this year. Clean books, clear advice, and a team that actually picks up the phone.",
+      "es": "Cambiar nuestra contabilidad a JBS fue la mejor decisión que tomamos este año. Libros impecables, consejos claros y un equipo que de verdad contesta el teléfono."
+    }
+  },
+  {
+    "id": "daniel-k",
+    "name": "Daniel K.",
+    "rating": 5,
+    "featured": false,
+    "lang": "en",
+    "role": { "en": "Real Estate Investor", "es": "Inversionista de Bienes Raíces" },
+    "quote": {
+      "en": "They understand real estate inside and out. Depreciation, pass-through deductions, the works — I finally feel like I'm not leaving money on the table.",
+      "es": "Entienden los bienes raíces a fondo. Depreciación, deducciones de traspaso, todo — por fin siento que no estoy dejando dinero sobre la mesa."
+    }
+  }
+]

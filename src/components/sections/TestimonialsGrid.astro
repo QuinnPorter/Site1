@@ -1,0 +1,53 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, useTranslations, localizePath } from '@i18n/utils';
+import SectionHeading from '@components/ui/SectionHeading.astro';
+import TestimonialCard from '@components/cards/TestimonialCard.astro';
+import Button from '@components/ui/Button.astro';
+
+interface Props {
+  featuredOnly?: boolean;
+  showAll?: boolean;
+  heading?: string;
+}
+const { featuredOnly = true, showAll = true, heading } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const all = await getCollection('testimonials');
+const items = (featuredOnly ? all.filter((x) => x.data.featured) : all);
+
+const title = heading ?? (lang === 'es' ? 'Con la Confianza de Miles en los 50 Estados' : 'Trusted By Thousands Across All 50 States');
+---
+<section class="tgrid">
+  <div class="container">
+    <SectionHeading title={title} />
+    <div class="tgrid__grid">
+      {items.map((x) => (
+        <TestimonialCard
+          quote={x.data.quote[lang]}
+          name={x.data.name}
+          role={x.data.role[lang]}
+          rating={x.data.rating}
+        />
+      ))}
+    </div>
+    {showAll && (
+      <div class="tgrid__cta">
+        <Button href={localizePath('/testimonials', lang)} variant="secondary">{t('cta.readAll')}</Button>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .tgrid { background: var(--cream); padding-block: var(--space-9); }
+  .tgrid__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+    margin-top: var(--space-7);
+  }
+  .tgrid__cta { display: flex; justify-content: center; margin-top: var(--space-7); }
+  @media (max-width: 900px) { .tgrid__grid { grid-template-columns: 1fr; } }
+</style>

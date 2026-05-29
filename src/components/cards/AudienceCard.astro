@@ -1,0 +1,60 @@
+---
+import Icon from '@components/ui/Icon.astro';
+
+interface Props {
+  index?: number;
+  icon?: string;
+  title: string;
+  summary: string;
+  href: string;
+  learnMore: string;
+}
+const { icon, title, summary, href, learnMore } = Astro.props;
+---
+<a class="acard" href={href}>
+  {icon && <span class="acard__icon"><Icon name={icon} size={20} /></span>}
+  <h3 class="acard__title">{title}</h3>
+  <p class="acard__summary">{summary}</p>
+  <span class="acard__more">{learnMore} <Icon name="arrow-right" size={15} /></span>
+</a>
+
+<style>
+  .acard {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-sm);
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), transform var(--dur) var(--ease);
+  }
+  .acard:hover {
+    border-color: var(--line-strong);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .acard__icon {
+    display: grid;
+    place-items: center;
+    width: 40px; height: 40px;
+    border-radius: var(--radius-md);
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: var(--space-4);
+  }
+  .acard__title { margin-bottom: var(--space-2); font-size: var(--fs-lg); }
+  .acard__summary { color: var(--muted); font-size: var(--fs-sm); line-height: 1.65; flex-grow: 1; }
+  .acard__more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: var(--space-5);
+    color: var(--accent);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+  }
+  .acard:hover .acard__more :global(svg) { transform: translateX(3px); }
+  .acard__more :global(svg) { transition: transform var(--dur) var(--ease); }
+</style>

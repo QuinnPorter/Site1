@@ -1,0 +1,39 @@
+---
+interface Props {
+  variant?: 'dark' | 'light';
+  class?: string;
+}
+const { variant = 'dark', class: className = '' } = Astro.props;
+const wordColor = variant === 'light' ? '#ffffff' : 'var(--ink)';
+const corpColor = variant === 'light' ? 'rgba(255,255,255,0.72)' : 'var(--muted)';
+const strokeColor = variant === 'light' ? 'rgba(255,255,255,0.9)' : 'var(--accent)';
+---
+<span class={`logo ${className}`.trim()} aria-label="JBS Corp">
+  <svg class="logo__mark" viewBox="0 0 48 48" width="40" height="40" aria-hidden="true">
+    <path
+      d="M6 30c4 9 14 14 24 11 8-2.4 13-9 13-17"
+      fill="none"
+      stroke={strokeColor}
+      stroke-width="5"
+      stroke-linecap="round"
+    />
+    <text x="22" y="30" text-anchor="middle" font-family="var(--font-display)" font-weight="700"
+      font-size="26" fill={wordColor}>J</text>
+  </svg>
+  <span class="logo__word" style={`--w:${wordColor};--c:${corpColor}`}>
+    <strong>JBS</strong><span>Corp</span>
+  </span>
+</span>
+
+<style>
+  .logo { display: inline-flex; align-items: center; gap: 0.55rem; }
+  .logo__mark { flex-shrink: 0; }
+  .logo__word {
+    font-family: var(--font-display);
+    font-size: 1.55rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .logo__word strong { color: var(--w); font-weight: 700; }
+  .logo__word span { color: var(--c); font-weight: 500; }
+</style>

@@ -1,0 +1,40 @@
+---
+import { getLangFromUrl, useTranslations, localizePath } from '@i18n/utils';
+import Button from '@components/ui/Button.astro';
+
+interface Props {
+  title?: string;
+  text?: string;
+  ctaLabel?: string;
+  ctaHref?: string;
+}
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const {
+  title = lang === 'es' ? '¿Listo Para Comenzar?' : 'Ready To Get Started?',
+  text,
+  ctaLabel = t('cta.book'),
+  ctaHref = localizePath('/contact', lang),
+} = Astro.props;
+---
+<section class="ctasec">
+  <div class="container ctasec__inner">
+    <h2 class="ctasec__title">{title}</h2>
+    {text && <p class="ctasec__text">{text}</p>}
+    <Button href={ctaHref} size="lg">{ctaLabel}</Button>
+  </div>
+</section>
+
+<style>
+  .ctasec { background: var(--surface); }
+  .ctasec__inner {
+    text-align: center;
+    padding-block: var(--space-9);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+  }
+  .ctasec__title { font-size: var(--fs-3xl); margin: 0; }
+  .ctasec__text { color: var(--muted); max-width: 52ch; margin: 0; font-size: var(--fs-lg); }
+</style>
