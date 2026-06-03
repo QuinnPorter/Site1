@@ -1,6 +1,9 @@
-/* Self-hosted variable fonts (no FOUT, privacy-friendly) */
-@import '@fontsource-variable/geist';
-@import '@fontsource-variable/inter';
+/* Self-hosted brand fonts (no FOUT, privacy-friendly) */
+/* Headings: Libre Baskerville · Body: Montserrat (per JBS Brand Guidelines) */
+@import '@fontsource/libre-baskerville/400.css';
+@import '@fontsource/libre-baskerville/400-italic.css';
+@import '@fontsource/libre-baskerville/700.css';
+@import '@fontsource-variable/montserrat';
 
 @import './tokens.css';
 @import './reset.css';

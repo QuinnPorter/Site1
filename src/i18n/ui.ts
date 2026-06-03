@@ -12,7 +12,7 @@ export const ui = {
     'nav.individual': 'Individual',
     'nav.business': 'Business',
     'nav.about': 'About JBS',
-    'nav.bookCta': 'Book Appointment',
+    'nav.bookCta': 'Book an Appointment',
 
     // Nav items
     'nav.tax': 'Tax Services',
@@ -65,7 +65,7 @@ export const ui = {
     'nav.individual': 'Individual',
     'nav.business': 'Empresas',
     'nav.about': 'Sobre JBS',
-    'nav.bookCta': 'Reservar Cita',
+    'nav.bookCta': 'Reservar una Cita',
 
     // Nav items
     'nav.tax': 'Servicios de Impuestos',

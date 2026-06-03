@@ -8,15 +8,16 @@ body {
   font-size: var(--fs-base);
   color: var(--ink);
   background: var(--bg);
-  font-feature-settings: 'cv05' 1, 'ss01' 1;
+  line-height: 1.5; /* brand: line spacing 1.5, left aligned */
+  letter-spacing: 0; /* brand: letter spacing 0 */
 }
 
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   color: var(--heading);
-  line-height: var(--lh-tight);
-  font-weight: 650;
-  letter-spacing: -0.022em;
+  line-height: var(--lh-snug);
+  font-weight: 700; /* Libre Baskerville ships 400 / 700 */
+  letter-spacing: 0; /* brand: letter spacing 0 */
 }
 
 h1 { font-size: var(--fs-3xl); }
