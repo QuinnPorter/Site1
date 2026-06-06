@@ -18,8 +18,8 @@ export const EXTERNAL = {
 } as const;
 
 export const SOCIALS = [
-  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/jbscorp', icon: 'linkedin' },
-  { name: 'Facebook', href: 'https://www.facebook.com/jbscorp', icon: 'facebook' },
+  { name: 'LinkedIn', href: 'https://www.linkedin.com/company/jbs-corp/', icon: 'linkedin' },
+  { name: 'Facebook', href: 'https://www.facebook.com/jbstaxes/', icon: 'facebook' },
   { name: 'Instagram', href: 'https://www.instagram.com/jbscorp', icon: 'instagram' },
 ] as const;
 
