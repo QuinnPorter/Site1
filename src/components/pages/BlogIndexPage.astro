@@ -1,0 +1,91 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, localizePath } from '@i18n/utils';
+import PageHeader from '@components/ui/PageHeader.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Articles',
+    title: 'Tax & accounting,',
+    accent: 'in plain English',
+    lead: 'Practical articles for individuals and business owners — deadlines, deductions, and planning, written without the jargon.',
+    read: 'Read more',
+    none: 'New articles coming soon.',
+  },
+  es: {
+    eyebrow: 'Artículos',
+    title: 'Impuestos y contabilidad,',
+    accent: 'en lenguaje claro',
+    lead: 'Artículos prácticos para personas y dueños de negocios — fechas límite, deducciones y planificación, sin tecnicismos.',
+    read: 'Leer más',
+    none: 'Pronto publicaremos nuevos artículos.',
+  },
+}[lang];
+
+const all = await getCollection('articles', (e) => e.data.lang === lang && !e.data.draft);
+const posts = all.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const slugOf = (id: string) => id.replace(/^(en|es)\//, '');
+const dateFmt = (d: Date) =>
+  new Intl.DateTimeFormat(lang === 'es' ? 'es-US' : 'en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric',
+  }).format(d);
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="blog">
+  <div class="container">
+    {posts.length === 0 ? (
+      <p class="blog__empty">{copy.none}</p>
+    ) : (
+      <ul class="blog__list">
+        {posts.map((p) => (
+          <li class="blog__card">
+            <div class="blog__meta">
+              <span class="blog__cat">{p.data.category}</span>
+              <time datetime={p.data.pubDate.toISOString()}>{dateFmt(p.data.pubDate)}</time>
+            </div>
+            <h2 class="blog__title">
+              <a href={localizePath(`/blog/${slugOf(p.id)}`, lang)}>{p.data.title}</a>
+            </h2>
+            <p class="blog__desc">{p.data.description}</p>
+            <a class="blog__more" href={localizePath(`/blog/${slugOf(p.id)}`, lang)}>{copy.read} →</a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</section>
+
+<style>
+  .blog { padding-block: var(--space-9); background: var(--surface); }
+  .blog__empty { text-align: center; color: var(--muted); }
+  .blog__list { display: grid; gap: var(--space-5); list-style: none; margin: 0; padding: 0; }
+  .blog__card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-6);
+  }
+  .blog__meta {
+    display: flex;
+    gap: var(--space-3);
+    align-items: center;
+    font-size: var(--fs-xs);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    margin-bottom: var(--space-3);
+  }
+  .blog__cat { color: var(--accent); font-weight: 600; }
+  .blog__title { font-size: var(--fs-xl); margin: 0 0 var(--space-3); }
+  .blog__title a { color: var(--heading); text-decoration: none; }
+  .blog__title a:hover { color: var(--accent); }
+  .blog__desc { color: var(--muted); line-height: 1.6; margin: 0 0 var(--space-4); }
+  .blog__more { color: var(--accent); font-weight: 600; }
+</style>

@@ -1,0 +1,23 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import PageHeader from '@components/ui/PageHeader.astro';
+import TestimonialsGrid from '@components/sections/TestimonialsGrid.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Reviews',
+    title: 'Trusted by thousands',
+    accent: 'across all 50 states',
+    lead: 'Individuals, families, and businesses come to JBS for accurate work and a team that treats their finances like they matter. Here is what they say.',
+  },
+  es: {
+    eyebrow: 'Reseñas',
+    title: 'Con la confianza de miles',
+    accent: 'en los 50 estados',
+    lead: 'Personas, familias y empresas eligen a JBS por su trabajo preciso y un equipo que trata sus finanzas como lo que son: importantes. Esto es lo que dicen.',
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+<TestimonialsGrid featuredOnly={false} showAll={false} showHeading={false} />

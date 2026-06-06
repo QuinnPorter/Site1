@@ -1,0 +1,127 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import { EXTERNAL } from '@data/site';
+import PageHeader from '@components/ui/PageHeader.astro';
+import FeatureGrid from '@components/ui/FeatureGrid.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Bookkeeping & Controller',
+    title: 'Clean books, real numbers,',
+    accent: 'and a controller in your corner',
+    lead: 'Monthly bookkeeping, reconciliations, and reporting — plus fractional controller support tiered to the complexity of your finances, not the size of your company.',
+    whatTitle: 'What you get',
+    what: [
+      { icon: 'calculator', title: 'Monthly bookkeeping', desc: 'Transaction coding and reconciliations that keep your books accurate and current.' },
+      { icon: 'file', title: 'Financial statements', desc: 'P&L, balance sheet, and cash flow you can actually read and act on.' },
+      { icon: 'trending-up', title: 'Reviews & insight', desc: 'Regular check-ins to explain the numbers and flag what needs attention.' },
+      { icon: 'briefcase', title: 'Fractional controller', desc: 'Senior oversight, planning, and dashboards as you scale — without a full-time hire.' },
+    ],
+    tiersTitle: 'Tiered packages for businesses',
+    tiersLead: 'Built around the complexity and sophistication of your processes — not your headcount.',
+    tiers: [
+      { name: 'Early', price: '$299/mo', desc: 'For small, early-stage businesses building a solid financial foundation.', points: ['Transaction coding', 'Reconciliations', 'Foundational financial operations'] },
+      { name: 'Growing', price: '$499/mo', desc: 'Robust bookkeeping for expanding businesses that want visibility and control.', points: ['Transaction categorization', 'Monthly statements (P&L, BS, Cash Flow)', 'Basic monthly reviews'] },
+      { name: 'Established', price: '$1,499/mo', desc: 'For established businesses ready to elevate operations and growth.', points: ['Accrual-based accounting', 'Tax-filing preparation', 'Payroll & loan entries', 'Quarterly check-ins'] },
+      { name: 'Advanced', price: '$2,499/mo', desc: 'For stabilized businesses with high revenue and growing teams.', points: ['Cash flow modeling', 'Profitability analysis', 'Budget variance reporting', 'Custom dashboards', 'Capital planning'] },
+    ],
+    fromLabel: 'Starting at',
+    cta: 'Book an Appointment',
+  },
+  es: {
+    eyebrow: 'Contabilidad y Control',
+    title: 'Libros limpios, números reales,',
+    accent: 'y un controller de tu lado',
+    lead: 'Contabilidad mensual, conciliaciones e informes — más apoyo de controller fraccional adaptado a la complejidad de tus finanzas, no al tamaño de tu empresa.',
+    whatTitle: 'Qué incluye',
+    what: [
+      { icon: 'calculator', title: 'Contabilidad mensual', desc: 'Codificación de transacciones y conciliaciones que mantienen tus libros precisos y al día.' },
+      { icon: 'file', title: 'Estados financieros', desc: 'P&L, balance general y flujo de caja que de verdad puedes leer y usar.' },
+      { icon: 'trending-up', title: 'Revisiones e información', desc: 'Reuniones periódicas para explicar los números y señalar lo que requiere atención.' },
+      { icon: 'briefcase', title: 'Controller fraccional', desc: 'Supervisión senior, planificación y dashboards mientras creces — sin contratar a tiempo completo.' },
+    ],
+    tiersTitle: 'Paquetes por niveles para empresas',
+    tiersLead: 'Diseñados según la complejidad de tus procesos — no según tu número de empleados.',
+    tiers: [
+      { name: 'Inicial', price: '$299/mes', desc: 'Para pequeñas empresas en etapa inicial que construyen una base financiera sólida.', points: ['Codificación de transacciones', 'Conciliaciones', 'Operaciones financieras básicas'] },
+      { name: 'Crecimiento', price: '$499/mes', desc: 'Contabilidad robusta para empresas en expansión que buscan visibilidad y control.', points: ['Categorización de transacciones', 'Estados mensuales (P&L, BG, Flujo)', 'Revisiones mensuales básicas'] },
+      { name: 'Establecida', price: '$1,499/mes', desc: 'Para empresas establecidas listas para elevar operaciones y crecimiento.', points: ['Contabilidad por devengo', 'Preparación para declaraciones', 'Entradas de nómina y préstamos', 'Reuniones trimestrales'] },
+      { name: 'Avanzada', price: '$2,499/mes', desc: 'Para empresas estables con altos ingresos y equipos en crecimiento.', points: ['Modelado de flujo de caja', 'Análisis de rentabilidad', 'Reportes de variación de presupuesto', 'Dashboards personalizados', 'Planificación de capital'] },
+    ],
+    fromLabel: 'Desde',
+    cta: 'Reservar una Cita',
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="svcsec">
+  <div class="container">
+    <h2 class="svcsec__title">{copy.whatTitle}</h2>
+    <FeatureGrid items={copy.what} cols={4} />
+  </div>
+</section>
+
+<section class="svcsec svcsec--alt">
+  <div class="container">
+    <div class="tiers__head">
+      <h2 class="svcsec__title">{copy.tiersTitle}</h2>
+      <p class="tiers__lead">{copy.tiersLead}</p>
+    </div>
+    <div class="tiers">
+      {copy.tiers.map((tier) => (
+        <article class="tier">
+          <h3 class="tier__name">{tier.name}</h3>
+          <p class="tier__price"><span class="tier__from">{copy.fromLabel}</span> {tier.price}</p>
+          <p class="tier__desc">{tier.desc}</p>
+          <ul class="tier__points">
+            {tier.points.map((p) => (
+              <li><Icon name="check" size={16} /> {p}</li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+    <div class="tiers__cta">
+      <Button href={EXTERNAL.booking} external size="lg">{copy.cta}</Button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .svcsec { padding-block: var(--space-9); background: var(--surface); }
+  .svcsec--alt { background: var(--bg-alt); }
+  .svcsec__title { font-size: var(--fs-2xl); text-align: center; margin: 0 0 var(--space-3); }
+  .tiers__head { max-width: 640px; margin: 0 auto var(--space-7); text-align: center; }
+  .tiers__lead { color: var(--muted); margin: 0; }
+
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-5);
+  }
+  .tier {
+    display: flex;
+    flex-direction: column;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-6);
+  }
+  .tier__name { font-size: var(--fs-lg); margin: 0 0 var(--space-2); }
+  .tier__price { font-family: var(--font-display); font-weight: 700; font-size: var(--fs-xl); color: var(--heading); margin: 0 0 var(--space-3); }
+  .tier__from { display: block; font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  .tier__desc { color: var(--muted); font-size: var(--fs-sm); line-height: 1.6; margin: 0 0 var(--space-4); }
+  .tier__points { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; margin-top: auto; }
+  .tier__points li { display: flex; align-items: flex-start; gap: 0.5rem; font-size: var(--fs-sm); }
+  .tier__points :global(svg) { color: var(--accent); flex-shrink: 0; margin-top: 2px; }
+
+  .tiers__cta { display: flex; justify-content: center; margin-top: var(--space-7); }
+
+  @media (max-width: 900px) { .tiers { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 560px) { .tiers { grid-template-columns: 1fr; } }
+</style>

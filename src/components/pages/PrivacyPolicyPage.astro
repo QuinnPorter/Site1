@@ -1,0 +1,95 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import { SITE } from '@data/site';
+import PageHeader from '@components/ui/PageHeader.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Legal',
+    title: 'Privacy Policy',
+    lead: 'How JBS Corp collects, uses, and protects your personal information.',
+    updated: 'Last updated: January 2026',
+    sections: [
+      {
+        h: 'Information we collect',
+        p: 'We collect information you provide directly — such as your name, contact details, and the tax and financial documents you share with us to prepare your return or provide accounting services. We also collect basic, non-identifying analytics about how our website is used.',
+      },
+      {
+        h: 'How we use your information',
+        p: 'We use your information solely to deliver the services you request: preparing and filing tax returns, providing bookkeeping and advisory services, communicating with you, and meeting our legal and regulatory obligations. We do not sell your personal information.',
+      },
+      {
+        h: 'How we share information',
+        p: 'We share information only as needed to provide our services — for example, with tax authorities when filing on your behalf, or with secure software providers we use to manage documents and payments. These providers are bound by confidentiality and data-protection obligations.',
+      },
+      {
+        h: 'Data security',
+        p: 'We use a secure client portal and reputable, encrypted software to store and transmit your documents. Access is limited to team members who need it to serve you.',
+      },
+      {
+        h: 'Your rights',
+        p: 'You may request access to, correction of, or deletion of your personal information, subject to the records we are legally required to retain. Contact us to make a request.',
+      },
+      {
+        h: 'Contact us',
+        p: `Questions about this policy? Email ${SITE.email} or reach either of our Massachusetts offices.`,
+      },
+    ],
+  },
+  es: {
+    eyebrow: 'Legal',
+    title: 'Política de Privacidad',
+    lead: 'Cómo JBS Corp recopila, usa y protege tu información personal.',
+    updated: 'Última actualización: enero de 2026',
+    sections: [
+      {
+        h: 'Información que recopilamos',
+        p: 'Recopilamos la información que nos proporcionas directamente — como tu nombre, datos de contacto y los documentos tributarios y financieros que compartes con nosotros para preparar tu declaración o brindar servicios contables. También recopilamos datos analíticos básicos y no identificables sobre el uso de nuestro sitio web.',
+      },
+      {
+        h: 'Cómo usamos tu información',
+        p: 'Usamos tu información únicamente para prestar los servicios que solicitas: preparar y presentar declaraciones, brindar contabilidad y asesoría, comunicarnos contigo y cumplir nuestras obligaciones legales y regulatorias. No vendemos tu información personal.',
+      },
+      {
+        h: 'Cómo compartimos la información',
+        p: 'Compartimos información solo cuando es necesario para prestar nuestros servicios — por ejemplo, con las autoridades tributarias al presentar en tu nombre, o con proveedores de software seguros que usamos para gestionar documentos y pagos. Estos proveedores están sujetos a obligaciones de confidencialidad y protección de datos.',
+      },
+      {
+        h: 'Seguridad de los datos',
+        p: 'Usamos un portal de cliente seguro y software cifrado y confiable para almacenar y transmitir tus documentos. El acceso se limita a los miembros del equipo que lo necesitan para atenderte.',
+      },
+      {
+        h: 'Tus derechos',
+        p: 'Puedes solicitar acceso, corrección o eliminación de tu información personal, sujeto a los registros que estamos legalmente obligados a conservar. Contáctanos para hacer una solicitud.',
+      },
+      {
+        h: 'Contáctanos',
+        p: `¿Preguntas sobre esta política? Escribe a ${SITE.email} o comunícate con cualquiera de nuestras oficinas en Massachusetts.`,
+      },
+    ],
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} align="left" />
+
+<section class="legal">
+  <div class="container legal__inner">
+    <p class="legal__updated">{copy.updated}</p>
+    {copy.sections.map((s) => (
+      <div class="legal__block">
+        <h2>{s.h}</h2>
+        <p>{s.p}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .legal { padding-block: var(--space-9); background: var(--surface); }
+  .legal__inner { max-width: 760px; }
+  .legal__updated { color: var(--muted); font-size: var(--fs-sm); margin: 0 0 var(--space-6); }
+  .legal__block { margin-bottom: var(--space-6); }
+  .legal__block h2 { font-size: var(--fs-xl); margin: 0 0 var(--space-3); }
+  .legal__block p { color: var(--muted); line-height: 1.7; margin: 0; }
+</style>

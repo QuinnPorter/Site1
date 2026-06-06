@@ -1,0 +1,134 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import { OFFICES, SITE, EXTERNAL } from '@data/site';
+import PageHeader from '@components/ui/PageHeader.astro';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Contact Us',
+    title: 'We are always happy',
+    accent: 'to help',
+    lead: 'Call, email, or send a message — in English or Spanish. For the fastest start, book an appointment and we will take it from there.',
+    formTitle: 'Send us a message',
+    fName: 'Your name',
+    fEmail: 'Email',
+    fPhone: 'Phone (optional)',
+    fMessage: 'How can we help?',
+    fSubmit: 'Send message',
+    quickTitle: 'Reach us directly',
+    book: 'Book an Appointment',
+    portal: 'Client Portal',
+    pay: 'Make a Payment',
+    emailLabel: 'Email us',
+    officesTitle: 'Our offices',
+  },
+  es: {
+    eyebrow: 'Contáctanos',
+    title: 'Siempre estamos felices',
+    accent: 'de ayudar',
+    lead: 'Llama, escribe o envía un mensaje — en inglés o español. Para empezar más rápido, reserva una cita y nosotros nos encargamos.',
+    formTitle: 'Envíanos un mensaje',
+    fName: 'Tu nombre',
+    fEmail: 'Correo electrónico',
+    fPhone: 'Teléfono (opcional)',
+    fMessage: '¿Cómo podemos ayudarte?',
+    fSubmit: 'Enviar mensaje',
+    quickTitle: 'Contáctanos directamente',
+    book: 'Reservar una Cita',
+    portal: 'Portal del Cliente',
+    pay: 'Hacer un Pago',
+    emailLabel: 'Escríbenos',
+    officesTitle: 'Nuestras oficinas',
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="contact">
+  <div class="container contact__grid">
+    <div class="contact__form-wrap">
+      <h2>{copy.formTitle}</h2>
+      <form class="contact__form" action={`mailto:${SITE.email}`} method="post" enctype="text/plain">
+        <label>{copy.fName}<input type="text" name="name" required autocomplete="name" /></label>
+        <label>{copy.fEmail}<input type="email" name="email" required autocomplete="email" /></label>
+        <label>{copy.fPhone}<input type="tel" name="phone" autocomplete="tel" /></label>
+        <label>{copy.fMessage}<textarea name="message" rows="5" required></textarea></label>
+        <Button type="submit" size="lg">{copy.fSubmit}</Button>
+      </form>
+    </div>
+
+    <aside class="contact__side">
+      <h2>{copy.quickTitle}</h2>
+      <div class="contact__actions">
+        <Button href={EXTERNAL.booking} external>{copy.book}</Button>
+        <a class="contact__link" href={`mailto:${SITE.email}`}><Icon name="mail" size={16} /> {SITE.email}</a>
+        <a class="contact__link" href={EXTERNAL.portal} target="_blank" rel="noopener noreferrer"><Icon name="user" size={16} /> {copy.portal}</a>
+        <a class="contact__link" href={EXTERNAL.payment} target="_blank" rel="noopener noreferrer"><Icon name="briefcase" size={16} /> {copy.pay}</a>
+      </div>
+
+      <h2 class="contact__offices-title">{copy.officesTitle}</h2>
+      <div class="contact__offices">
+        {OFFICES.map((o) => (
+          <div class="contact__office">
+            <div class="contact__office-city"><Icon name="map-pin" size={15} /> {o.city}</div>
+            <div>{o.street}, {o.region}</div>
+            <a href={o.phoneHref}><Icon name="phone" size={14} /> {o.phone}</a>
+          </div>
+        ))}
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .contact { padding-block: var(--space-9); background: var(--surface); }
+  .contact__grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: clamp(var(--space-6), 5vw, var(--space-8)); align-items: start; }
+  .contact h2 { font-size: var(--fs-xl); margin: 0 0 var(--space-5); }
+
+  .contact__form { display: flex; flex-direction: column; gap: var(--space-4); }
+  .contact__form label { display: flex; flex-direction: column; gap: 0.4rem; font-size: var(--fs-sm); font-weight: 600; color: var(--heading); }
+  .contact__form input,
+  .contact__form textarea {
+    font-family: var(--font-sans);
+    font-size: var(--fs-base);
+    font-weight: 400;
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius-md);
+    padding: 0.7rem 0.9rem;
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+  }
+  .contact__form input:focus,
+  .contact__form textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+  }
+  .contact__form textarea { resize: vertical; }
+
+  .contact__side {
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: var(--space-6);
+  }
+  .contact__actions { display: flex; flex-direction: column; gap: var(--space-3); align-items: flex-start; }
+  .contact__link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--ink); font-weight: 500; font-size: var(--fs-sm); }
+  .contact__link:hover { color: var(--accent); }
+  .contact__link :global(svg) { color: var(--accent); }
+
+  .contact__offices-title { margin-top: var(--space-6); }
+  .contact__offices { display: flex; flex-direction: column; gap: var(--space-4); }
+  .contact__office { font-size: var(--fs-sm); line-height: 1.6; }
+  .contact__office-city { display: flex; align-items: center; gap: 0.4rem; font-weight: 600; color: var(--heading); }
+  .contact__office-city :global(svg) { color: var(--accent); }
+  .contact__office a { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); margin-top: 0.15rem; }
+
+  @media (max-width: 860px) {
+    .contact__grid { grid-template-columns: 1fr; }
+  }
+</style>

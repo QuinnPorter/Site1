@@ -1,5 +1,6 @@
 ---
-import { getLangFromUrl, useTranslations, localizePath } from '@i18n/utils';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { EXTERNAL } from '@data/site';
 import Button from '@components/ui/Button.astro';
 
 const lang = getLangFromUrl(Astro.url);
@@ -8,7 +9,7 @@ const t = useTranslations(lang);
 <section class="footercta">
   <div class="container footercta__inner">
     <p class="footercta__text">{t('footer.bannerText')}</p>
-    <Button href={localizePath('/contact', lang)} variant="white" size="lg">{t('cta.bookAppt')}</Button>
+    <Button href={EXTERNAL.booking} external variant="white" size="lg">{t('cta.bookAppt')}</Button>
   </div>
 </section>
 

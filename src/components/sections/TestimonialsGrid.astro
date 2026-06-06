@@ -8,9 +8,10 @@ import Button from '@components/ui/Button.astro';
 interface Props {
   featuredOnly?: boolean;
   showAll?: boolean;
+  showHeading?: boolean;
   heading?: string;
 }
-const { featuredOnly = true, showAll = true, heading } = Astro.props;
+const { featuredOnly = true, showAll = true, showHeading = true, heading } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -21,7 +22,7 @@ const title = heading ?? (lang === 'es' ? 'Con la Confianza de Miles en los 50 E
 ---
 <section class="tgrid">
   <div class="container">
-    <SectionHeading title={title} />
+    {showHeading && <SectionHeading title={title} />}
     <div class="tgrid__grid">
       {items.map((x) => (
         <TestimonialCard

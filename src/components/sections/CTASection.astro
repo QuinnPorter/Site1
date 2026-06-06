@@ -1,5 +1,6 @@
 ---
-import { getLangFromUrl, useTranslations, localizePath } from '@i18n/utils';
+import { getLangFromUrl, useTranslations } from '@i18n/utils';
+import { EXTERNAL } from '@data/site';
 import Button from '@components/ui/Button.astro';
 
 interface Props {
@@ -7,21 +8,23 @@ interface Props {
   text?: string;
   ctaLabel?: string;
   ctaHref?: string;
+  external?: boolean;
 }
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const {
   title = lang === 'es' ? '¿Listo Para Comenzar?' : 'Ready To Get Started?',
   text,
-  ctaLabel = t('cta.book'),
-  ctaHref = localizePath('/contact', lang),
+  ctaLabel = t('cta.bookAppt'),
+  ctaHref = EXTERNAL.booking,
+  external = true,
 } = Astro.props;
 ---
 <section class="ctasec">
   <div class="container ctasec__inner">
     <h2 class="ctasec__title">{title}</h2>
     {text && <p class="ctasec__text">{text}</p>}
-    <Button href={ctaHref} size="lg">{ctaLabel}</Button>
+    <Button href={ctaHref} external={external} size="lg">{ctaLabel}</Button>
   </div>
 </section>
 

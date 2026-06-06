@@ -1,0 +1,11 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import ControllerServicesPage from '@components/pages/ControllerServicesPage.astro';
+import { getLangFromUrl } from '@i18n/utils';
+import { pageMeta } from '@data/pageMeta';
+
+const m = pageMeta.controller[getLangFromUrl(Astro.url)];
+---
+<BaseLayout title={m.title} description={m.description}>
+  <ControllerServicesPage />
+</BaseLayout>

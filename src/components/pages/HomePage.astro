@@ -1,0 +1,55 @@
+---
+import { getLangFromUrl, localizePath } from '@i18n/utils';
+import { EXTERNAL } from '@data/site';
+import Hero from '@components/sections/Hero.astro';
+import AwardFeature from '@components/sections/AwardFeature.astro';
+import TestimonialsGrid from '@components/sections/TestimonialsGrid.astro';
+import BilingualHighlight from '@components/sections/BilingualHighlight.astro';
+import ServiceFinder from '@components/sections/ServiceFinder.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Xero Large Firm of the Year 2025',
+    title: 'The tax firm that',
+    accent: 'gets the full picture',
+    subtitle: 'La firma de impuestos que ve el panorama completo',
+    lead: 'Tax and accounting for individuals, families, and growing businesses — in all 50 states. Twenty years in, fully bilingual, and a team that actually picks up the phone.',
+    primary: 'Book an Appointment',
+    secondary: 'Explore services',
+    stats: [
+      { value: '20+', label: 'Years of expertise' },
+      { value: 'All 50', label: 'States served' },
+      { value: '100%', label: 'Bilingual support' },
+    ],
+  },
+  es: {
+    eyebrow: 'Gran Firma del Año Xero 2025',
+    title: 'La firma de impuestos que ve',
+    accent: 'el panorama completo',
+    subtitle: 'The tax firm that gets the full picture',
+    lead: 'Impuestos y contabilidad para personas, familias y empresas en crecimiento — en los 50 estados. Veinte años de experiencia, totalmente bilingüe y un equipo que de verdad contesta el teléfono.',
+    primary: 'Reservar una Cita',
+    secondary: 'Ver servicios',
+    stats: [
+      { value: '20+', label: 'Años de experiencia' },
+      { value: 'Los 50', label: 'Estados atendidos' },
+      { value: '100%', label: 'Atención bilingüe' },
+    ],
+  },
+}[lang];
+---
+<Hero
+  eyebrow={copy.eyebrow}
+  title={copy.title}
+  accent={copy.accent}
+  subtitle={copy.subtitle}
+  lead={copy.lead}
+  primary={{ label: copy.primary, href: EXTERNAL.booking, external: true }}
+  secondary={{ label: copy.secondary, href: localizePath('/services', lang) }}
+  stats={copy.stats}
+/>
+<AwardFeature />
+<ServiceFinder />
+<BilingualHighlight />
+<TestimonialsGrid />

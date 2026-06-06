@@ -9,11 +9,11 @@ export const SITE = {
 } as const;
 
 export const EXTERNAL = {
-  booking: 'https://calendly.com/jbscorp',
+  booking: 'https://calendly.com/d/3vk-shd-hgj',
   payment: 'https://jbscorp.cardpointe.com',
   portal: 'https://jbscorp.taxdome.com',
   podcast: 'https://onestepbeyondfailure.com',
-  events: 'https://www.eventbrite.com/o/jbs-corp',
+  events: 'https://www.eventbrite.com/o/jbs-corp-95734310803',
   careersIndeed: 'https://www.indeed.com/cmp/Jbs-Corp',
 } as const;
 

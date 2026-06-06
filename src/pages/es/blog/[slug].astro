@@ -1,0 +1,54 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageHeader from '@components/ui/PageHeader.astro';
+import { localizePath } from '@i18n/utils';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('articles', (e) => e.data.lang === 'es' && !e.data.draft);
+  const slugOf = (id: string) => id.replace(/^(en|es)\//, '');
+  return posts.map((post) => ({
+    params: { slug: slugOf(post.id) },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props as {
+  post: Awaited<ReturnType<typeof getCollection<'articles'>>>[number];
+};
+const { Content } = await render(post);
+const dateFmt = new Intl.DateTimeFormat('es-US', { year: 'numeric', month: 'long', day: 'numeric' }).format(post.data.pubDate);
+---
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <PageHeader
+    eyebrow={post.data.category}
+    title={post.data.title}
+    lead={post.data.description}
+    align="left"
+  />
+  <article class="article">
+    <div class="container article__inner">
+      <p class="article__meta">{post.data.author} · {dateFmt}</p>
+      <div class="article__body prose">
+        <Content />
+      </div>
+      <p class="article__back">
+        <a href={localizePath('/blog', 'es')}>← Todos los artículos</a>
+      </p>
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article { padding-block: var(--space-9); background: var(--surface); }
+  .article__inner { max-width: 720px; }
+  .article__meta { color: var(--muted); font-size: var(--fs-sm); margin: 0 0 var(--space-6); }
+  .article__body :global(p) { color: var(--ink); line-height: 1.75; margin: 0 0 var(--space-5); }
+  .article__body :global(h2) { font-size: var(--fs-xl); margin: var(--space-7) 0 var(--space-3); }
+  .article__body :global(h3) { font-size: var(--fs-lg); margin: var(--space-6) 0 var(--space-2); }
+  .article__body :global(ul), .article__body :global(ol) { color: var(--ink); line-height: 1.7; margin: 0 0 var(--space-5); padding-left: var(--space-5); }
+  .article__body :global(li) { margin-bottom: 0.5rem; }
+  .article__body :global(a) { color: var(--accent); }
+  .article__back { margin-top: var(--space-7); }
+  .article__back a { color: var(--accent); font-weight: 600; }
+</style>

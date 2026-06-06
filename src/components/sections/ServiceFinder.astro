@@ -1,0 +1,238 @@
+---
+import { getCollection } from 'astro:content';
+import { getLangFromUrl, localizePath } from '@i18n/utils';
+import { EXTERNAL } from '@data/site';
+import Button from '@components/ui/Button.astro';
+import Icon from '@components/ui/Icon.astro';
+
+const lang = getLangFromUrl(Astro.url);
+
+const copy = {
+  en: {
+    eyebrow: 'Service finder',
+    title: 'Not sure where to start?',
+    subtitle: 'Answer one quick question and we’ll point you to the right team.',
+    question: 'Which best describes you?',
+    hints: {
+      'w2-employees': 'I get a paycheck and a W-2',
+      'freelancers-1099': 'I’m self-employed or a contractor',
+      'real-estate': 'I own rental property',
+      'small-business': 'I run a company or LLC',
+    } as Record<string, string>,
+    chooseInstruction: 'Choose an option to see your recommended next step.',
+    weRecommend: 'We recommend',
+    learnMore: 'Learn more',
+    book: 'Book an Appointment',
+  },
+  es: {
+    eyebrow: 'Buscador de servicios',
+    title: '¿No sabes por dónde empezar?',
+    subtitle: 'Responde una pregunta rápida y te conectamos con el equipo correcto.',
+    question: '¿Cuál te describe mejor?',
+    hints: {
+      'w2-employees': 'Recibo un cheque y un W-2',
+      'freelancers-1099': 'Soy independiente o contratista',
+      'real-estate': 'Tengo propiedad de alquiler',
+      'small-business': 'Tengo una empresa o LLC',
+    } as Record<string, string>,
+    chooseInstruction: 'Elige una opción para ver tu siguiente paso recomendado.',
+    weRecommend: 'Recomendamos',
+    learnMore: 'Saber más',
+    book: 'Reservar una Cita',
+  },
+}[lang];
+
+const ids = ['w2-employees', 'freelancers-1099', 'real-estate', 'small-business'];
+const all = await getCollection('services');
+const personas = ids.map((id) => all.find((s) => s.id === id)!).filter(Boolean);
+---
+<section class="finder">
+  <div class="container">
+    <header class="finder__head">
+      <span class="finder__eyebrow">{copy.eyebrow}</span>
+      <h2 class="finder__title">{copy.title}</h2>
+      <p class="finder__sub">{copy.subtitle}</p>
+    </header>
+
+    <div class="finder__panel" data-finder>
+      <p class="finder__question">{copy.question}</p>
+
+      <div class="finder__options" role="tablist" aria-label={copy.question}>
+        {personas.map((p) => (
+          <a
+            class="finder__opt"
+            data-finder-opt={p.id}
+            role="tab"
+            href={localizePath(p.data.href, lang)}
+            aria-controls={`finder-result-${p.id}`}
+            aria-selected="false"
+          >
+            <span class="finder__opt-icon"><Icon name={p.data.icon} size={20} /></span>
+            <span class="finder__opt-body">
+              <span class="finder__opt-title">{p.data.title[lang]}</span>
+              <span class="finder__opt-hint">{copy.hints[p.id]}</span>
+            </span>
+          </a>
+        ))}
+      </div>
+
+      <p class="finder__instruction" data-finder-instruction>{copy.chooseInstruction}</p>
+
+      {personas.map((p) => (
+        <div
+          class="finder__result"
+          id={`finder-result-${p.id}`}
+          role="tabpanel"
+          data-finder-result={p.id}
+          hidden
+        >
+          <div class="finder__result-head">
+            <span class="finder__result-eyebrow">{copy.weRecommend}</span>
+            <h3 class="finder__result-title">{p.data.title[lang]}</h3>
+          </div>
+          <p class="finder__result-desc">{p.data.summary[lang]}</p>
+          <div class="finder__result-actions">
+            <Button href={localizePath(p.data.href, lang)}>{copy.learnMore}</Button>
+            <Button href={EXTERNAL.booking} external variant="secondary">{copy.book}</Button>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    const root = document.querySelector('[data-finder]');
+    if (!root) return;
+    const opts = root.querySelectorAll<HTMLAnchorElement>('[data-finder-opt]');
+    const results = root.querySelectorAll<HTMLElement>('[data-finder-result]');
+    const instruction = root.querySelector<HTMLElement>('[data-finder-instruction]');
+
+    // JS is on: convert options from navigation links into interactive controls,
+    // and keep the result panels hidden until a choice is made.
+    opts.forEach((opt) => {
+      opt.setAttribute('role', 'tab');
+      opt.addEventListener('click', (e) => {
+        e.preventDefault();
+        const target = opt.dataset.finderOpt;
+        opts.forEach((o) => o.setAttribute('aria-selected', String(o === opt)));
+        results.forEach((r) => {
+          r.hidden = r.dataset.finderResult !== target;
+        });
+        if (instruction) instruction.hidden = true;
+      });
+    });
+  })();
+</script>
+
+<style>
+  .finder { background: var(--bg-alt); padding-block: var(--space-9); }
+  .finder__head { max-width: 640px; margin: 0 auto var(--space-7); text-align: center; }
+  .finder__eyebrow {
+    display: inline-block;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: var(--fs-sm);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: var(--space-3);
+  }
+  .finder__title { font-size: var(--fs-2xl); margin: 0; }
+  .finder__sub { color: var(--muted); line-height: 1.6; margin: var(--space-3) 0 0; }
+
+  .finder__panel {
+    max-width: 960px;
+    margin-inline: auto;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-6);
+  }
+  .finder__question {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--heading);
+    font-size: var(--fs-lg);
+    margin: 0 0 var(--space-5);
+    text-align: center;
+  }
+
+  .finder__options {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+  }
+  .finder__opt {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    color: var(--ink);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    text-decoration: none;
+    transition: border-color var(--dur) var(--ease), box-shadow var(--dur) var(--ease), background var(--dur) var(--ease);
+  }
+  .finder__opt:hover { border-color: var(--accent); box-shadow: var(--shadow-sm); }
+  .finder__opt[aria-selected='true'] {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    box-shadow: var(--shadow-sm);
+  }
+  .finder__opt-icon {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    background: var(--accent-soft);
+    color: var(--accent);
+  }
+  .finder__opt-body { display: flex; flex-direction: column; gap: 0.2rem; }
+  .finder__opt-title {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    color: var(--heading);
+    font-size: var(--fs-sm);
+  }
+  .finder__opt-hint { color: var(--muted); font-size: var(--fs-xs); line-height: 1.4; }
+
+  .finder__instruction {
+    margin: var(--space-5) 0 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: var(--fs-sm);
+  }
+
+  .finder__result {
+    margin-top: var(--space-5);
+    padding: var(--space-5);
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+  }
+  .finder__result-eyebrow {
+    display: block;
+    color: var(--accent);
+    font-weight: 600;
+    font-size: var(--fs-xs);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 0.25rem;
+  }
+  .finder__result-title { font-size: var(--fs-xl); margin: 0; }
+  .finder__result-desc { color: var(--muted); line-height: 1.6; margin: var(--space-3) 0 var(--space-4); }
+  .finder__result-actions { display: flex; gap: var(--space-3); flex-wrap: wrap; }
+
+  @media (max-width: 900px) {
+    .finder__options { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .finder__options { grid-template-columns: 1fr; }
+  }
+</style>

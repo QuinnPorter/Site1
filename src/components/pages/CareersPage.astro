@@ -1,0 +1,68 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import { EXTERNAL } from '@data/site';
+import PageHeader from '@components/ui/PageHeader.astro';
+import FeatureGrid from '@components/ui/FeatureGrid.astro';
+import Button from '@components/ui/Button.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Careers',
+    title: 'Build your career',
+    accent: 'where people come first',
+    lead: 'We are a bilingual, award-winning firm that invests in its team. If you care about doing great work and helping people, we would love to meet you.',
+    perksTitle: 'Why JBS',
+    perks: [
+      { icon: 'trending-up', title: 'Real growth', desc: 'Mentorship, training, and a clear path to advance as the firm grows.' },
+      { icon: 'users', title: 'A supportive team', desc: 'Collaborative, bilingual, and genuinely friendly — we have each other’s backs.' },
+      { icon: 'award', title: 'Award-winning work', desc: 'Xero’s Large Firm of the Year — do meaningful work for clients who value it.' },
+      { icon: 'home', title: 'Balance', desc: 'A workplace where staff can grow and succeed without burning out.' },
+    ],
+    ctaTitle: 'See open roles',
+    ctaLead: 'Browse current openings and apply on Indeed.',
+    cta: 'View open positions',
+  },
+  es: {
+    eyebrow: 'Empleo',
+    title: 'Construye tu carrera',
+    accent: 'donde las personas son primero',
+    lead: 'Somos una firma bilingüe y premiada que invierte en su equipo. Si te importa hacer un gran trabajo y ayudar a las personas, nos encantaría conocerte.',
+    perksTitle: 'Por qué JBS',
+    perks: [
+      { icon: 'trending-up', title: 'Crecimiento real', desc: 'Mentoría, capacitación y un camino claro para avanzar mientras la firma crece.' },
+      { icon: 'users', title: 'Un equipo que apoya', desc: 'Colaborativo, bilingüe y genuinamente cercano — nos cuidamos entre todos.' },
+      { icon: 'award', title: 'Trabajo premiado', desc: 'Gran Firma del Año de Xero — trabajo significativo para clientes que lo valoran.' },
+      { icon: 'home', title: 'Equilibrio', desc: 'Un lugar donde el equipo puede crecer y tener éxito sin agotarse.' },
+    ],
+    ctaTitle: 'Ver vacantes',
+    ctaLead: 'Explora las posiciones actuales y postula en Indeed.',
+    cta: 'Ver posiciones abiertas',
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="svcsec">
+  <div class="container">
+    <h2 class="svcsec__title">{copy.perksTitle}</h2>
+    <FeatureGrid items={copy.perks} cols={4} />
+  </div>
+</section>
+
+<section class="svcsec svcsec--alt">
+  <div class="container careers-cta">
+    <h2>{copy.ctaTitle}</h2>
+    <p>{copy.ctaLead}</p>
+    <Button href={EXTERNAL.careersIndeed} external size="lg">{copy.cta}</Button>
+  </div>
+</section>
+
+<style>
+  .svcsec { padding-block: var(--space-9); background: var(--surface); }
+  .svcsec--alt { background: var(--bg-alt); }
+  .svcsec__title { font-size: var(--fs-2xl); text-align: center; margin: 0 0 var(--space-7); }
+  .careers-cta { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-4); }
+  .careers-cta h2 { font-size: var(--fs-2xl); margin: 0; }
+  .careers-cta p { color: var(--muted); margin: 0; }
+</style>

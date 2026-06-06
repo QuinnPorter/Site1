@@ -1,0 +1,70 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import PageHeader from '@components/ui/PageHeader.astro';
+import FeatureGrid from '@components/ui/FeatureGrid.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Business Tax',
+    title: 'Business tax filing with',
+    accent: 'year-round planning',
+    lead: 'S-corp, partnership, and corporate returns filed on time — paired with proactive planning that lowers your bill and keeps you compliant.',
+    entitiesTitle: 'Entities we file for',
+    entities: [
+      { icon: 'briefcase', title: 'LLCs & sole props', desc: 'Schedule C, single- and multi-member LLCs, and the right elections for your stage.' },
+      { icon: 'building', title: 'S-corps', desc: 'Form 1120-S, reasonable comp, and owner distributions handled correctly.' },
+      { icon: 'users', title: 'Partnerships', desc: 'Form 1065, K-1s, and basis tracking for every partner.' },
+      { icon: 'file', title: 'C-corps', desc: 'Form 1120 filings with planning to manage double taxation.' },
+    ],
+    servicesTitle: 'Beyond the return',
+    services: [
+      { icon: 'trending-up', title: 'Proactive tax planning', desc: 'Quarterly estimates and year-end moves so April holds no surprises.' },
+      { icon: 'calculator', title: 'Entity & election strategy', desc: 'The right structure — and S-corp election timing — for how you actually operate.' },
+      { icon: 'check-circle', title: 'Payroll & 1099 compliance', desc: 'Filings, deadlines, and clean records that keep you out of trouble.' },
+      { icon: 'shield', title: 'Notices & audit support', desc: 'We respond to state and IRS notices and stand behind our work.' },
+    ],
+  },
+  es: {
+    eyebrow: 'Impuestos de Empresas',
+    title: 'Impuestos de empresas con',
+    accent: 'planificación todo el año',
+    lead: 'Declaraciones de S-corp, sociedades y corporaciones presentadas a tiempo — junto con planificación proactiva que reduce tu factura y te mantiene en cumplimiento.',
+    entitiesTitle: 'Entidades que declaramos',
+    entities: [
+      { icon: 'briefcase', title: 'LLC y propietarios únicos', desc: 'Schedule C, LLC de uno o varios miembros y las elecciones correctas para tu etapa.' },
+      { icon: 'building', title: 'S-corps', desc: 'Formulario 1120-S, compensación razonable y distribuciones bien manejadas.' },
+      { icon: 'users', title: 'Sociedades', desc: 'Formulario 1065, K-1 y seguimiento de base para cada socio.' },
+      { icon: 'file', title: 'C-corps', desc: 'Declaraciones 1120 con planificación para gestionar la doble tributación.' },
+    ],
+    servicesTitle: 'Más allá de la declaración',
+    services: [
+      { icon: 'trending-up', title: 'Planificación proactiva', desc: 'Estimados trimestrales y movimientos de fin de año para que abril no traiga sorpresas.' },
+      { icon: 'calculator', title: 'Estrategia de entidad y elecciones', desc: 'La estructura correcta — y el momento de la elección S-corp — para cómo realmente operas.' },
+      { icon: 'check-circle', title: 'Cumplimiento de nómina y 1099', desc: 'Presentaciones, fechas límite y registros limpios que te mantienen tranquilo.' },
+      { icon: 'shield', title: 'Avisos y auditorías', desc: 'Respondemos a avisos estatales y del IRS y respaldamos nuestro trabajo.' },
+    ],
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="svcsec">
+  <div class="container">
+    <h2 class="svcsec__title">{copy.entitiesTitle}</h2>
+    <FeatureGrid items={copy.entities} cols={4} />
+  </div>
+</section>
+
+<section class="svcsec svcsec--alt">
+  <div class="container">
+    <h2 class="svcsec__title">{copy.servicesTitle}</h2>
+    <FeatureGrid items={copy.services} cols={4} />
+  </div>
+</section>
+
+<style>
+  .svcsec { padding-block: var(--space-9); background: var(--surface); }
+  .svcsec--alt { background: var(--bg-alt); }
+  .svcsec__title { font-size: var(--fs-2xl); text-align: center; margin: 0 0 var(--space-7); }
+</style>

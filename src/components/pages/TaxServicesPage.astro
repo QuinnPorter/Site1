@@ -1,0 +1,128 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import PageHeader from '@components/ui/PageHeader.astro';
+import FeatureGrid from '@components/ui/FeatureGrid.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Individual Tax',
+    title: 'Personal taxes, done right',
+    accent: 'the first time',
+    lead: 'From a straightforward W-2 return to rental income, freelancing, and major life changes — we handle the full picture, in English and Spanish.',
+    whoTitle: 'Who we help',
+    who: [
+      { icon: 'user', title: 'W-2 employees', desc: 'Accurate, on-time filing with every legitimate deduction and credit you qualify for.' },
+      { icon: 'trending-up', title: 'Freelancers & 1099s', desc: 'Schedule C, self-employment tax, home office, and equipment — pay only what you owe.' },
+      { icon: 'home', title: 'Real estate investors', desc: 'Schedule E, rental income, depreciation, and pass-through deductions, handled with precision.' },
+      { icon: 'users', title: 'Families & life events', desc: 'Marriage, a new home, kids, education, retirement — we plan around what is changing.' },
+    ],
+    includedTitle: 'What is included',
+    included: [
+      { icon: 'file', title: 'Federal & state returns', desc: 'Prepared, reviewed, and e-filed — including multi-state filings.' },
+      { icon: 'check-circle', title: 'Every deduction & credit', desc: 'We dig for the ones most preparers miss, and document them properly.' },
+      { icon: 'clock', title: 'Prior-year & amendments', desc: 'Behind or need to fix a past return? We catch you up and clean it up.' },
+      { icon: 'shield', title: 'Audit support', desc: 'If the IRS has questions, we stand behind our work and help you respond.' },
+    ],
+    stepsTitle: 'How it works',
+    steps: [
+      { title: 'Book a free consult', desc: 'Tell us about your situation in a quick, no-pressure call.' },
+      { title: 'Send your documents', desc: 'Upload securely to our client portal — we tell you exactly what we need.' },
+      { title: 'Review & file', desc: 'We prepare your return, walk you through it, and file once you approve.' },
+    ],
+  },
+  es: {
+    eyebrow: 'Impuestos Personales',
+    title: 'Impuestos personales, bien hechos',
+    accent: 'a la primera',
+    lead: 'Desde una declaración W-2 sencilla hasta ingresos por alquiler, trabajo independiente y cambios importantes de vida — manejamos el panorama completo, en inglés y español.',
+    whoTitle: 'A quién ayudamos',
+    who: [
+      { icon: 'user', title: 'Empleados W-2', desc: 'Declaración precisa y a tiempo con cada deducción y crédito al que calificas.' },
+      { icon: 'trending-up', title: 'Freelancers y 1099', desc: 'Schedule C, impuesto de trabajo independiente, oficina en casa y equipo — paga solo lo que debes.' },
+      { icon: 'home', title: 'Inversionistas de bienes raíces', desc: 'Schedule E, ingresos por alquiler, depreciación y deducciones de traspaso, con precisión.' },
+      { icon: 'users', title: 'Familias y cambios de vida', desc: 'Matrimonio, casa nueva, hijos, educación, jubilación — planificamos según lo que cambia.' },
+    ],
+    includedTitle: 'Qué incluye',
+    included: [
+      { icon: 'file', title: 'Declaraciones federal y estatal', desc: 'Preparadas, revisadas y presentadas — incluyendo varios estados.' },
+      { icon: 'check-circle', title: 'Cada deducción y crédito', desc: 'Buscamos las que muchos preparadores pasan por alto, y las documentamos bien.' },
+      { icon: 'clock', title: 'Años anteriores y enmiendas', desc: '¿Atrasado o necesitas corregir una declaración? Te ponemos al día y lo arreglamos.' },
+      { icon: 'shield', title: 'Apoyo ante auditorías', desc: 'Si el IRS tiene preguntas, respaldamos nuestro trabajo y te ayudamos a responder.' },
+    ],
+    stepsTitle: 'Cómo funciona',
+    steps: [
+      { title: 'Agenda una consulta gratis', desc: 'Cuéntanos tu situación en una llamada rápida y sin presión.' },
+      { title: 'Envía tus documentos', desc: 'Súbelos de forma segura a nuestro portal — te decimos exactamente qué necesitamos.' },
+      { title: 'Revisa y presenta', desc: 'Preparamos tu declaración, te la explicamos y la presentamos cuando apruebas.' },
+    ],
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="svcsec">
+  <div class="container">
+    <h2 class="svcsec__title">{copy.whoTitle}</h2>
+    <FeatureGrid items={copy.who} cols={4} />
+  </div>
+</section>
+
+<section class="svcsec svcsec--alt">
+  <div class="container">
+    <h2 class="svcsec__title">{copy.includedTitle}</h2>
+    <FeatureGrid items={copy.included} cols={4} />
+  </div>
+</section>
+
+<section class="svcsec">
+  <div class="container">
+    <h2 class="svcsec__title">{copy.stepsTitle}</h2>
+    <ol class="steps">
+      {copy.steps.map((s, i) => (
+        <li class="step">
+          <span class="step__num">{i + 1}</span>
+          <div>
+            <h3>{s.title}</h3>
+            <p>{s.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .svcsec { padding-block: var(--space-9); background: var(--surface); }
+  .svcsec--alt { background: var(--bg-alt); }
+  .svcsec__title { font-size: var(--fs-2xl); text-align: center; margin: 0 0 var(--space-7); }
+
+  .steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    counter-reset: step;
+  }
+  .step { display: flex; gap: var(--space-4); }
+  .step__num {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-pill);
+    background: var(--accent);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+  }
+  .step h3 { font-size: var(--fs-lg); margin: 0 0 0.25rem; }
+  .step p { color: var(--muted); font-size: var(--fs-sm); line-height: 1.6; margin: 0; }
+
+  @media (max-width: 760px) {
+    .steps { grid-template-columns: 1fr; }
+  }
+</style>

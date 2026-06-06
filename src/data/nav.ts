@@ -45,5 +45,5 @@ export const navGroups: NavGroup[] = [
   },
 ];
 
-/** Primary CTA shown at the end of the nav. */
-export const navCta = { key: 'nav.bookCta', href: '/contact' };
+/** Primary CTA shown at the end of the nav — books an appointment (Calendly). */
+export const navCta = { key: 'nav.bookCta', href: EXTERNAL.booking, external: true };

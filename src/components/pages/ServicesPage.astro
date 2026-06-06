@@ -1,0 +1,32 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import PageHeader from '@components/ui/PageHeader.astro';
+import AudienceCards from '@components/sections/AudienceCards.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Our Services',
+    title: 'Everything your',
+    accent: 'financial life needs',
+    lead: 'Tax, bookkeeping, and business advisory for individuals, families, and growing companies — in all 50 states, fully bilingual. Pick where you fit and we will take it from there.',
+  },
+  es: {
+    eyebrow: 'Nuestros Servicios',
+    title: 'Todo lo que tu',
+    accent: 'vida financiera necesita',
+    lead: 'Impuestos, contabilidad y asesoría empresarial para personas, familias y empresas en crecimiento — en los 50 estados, totalmente bilingüe. Elige dónde encajas y nosotros nos encargamos.',
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="svcsec">
+  <div class="container">
+    <AudienceCards numbered={false} />
+  </div>
+</section>
+
+<style>
+  .svcsec { padding-block: var(--space-9); background: var(--surface); }
+</style>

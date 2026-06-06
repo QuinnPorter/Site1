@@ -1,0 +1,65 @@
+---
+import Icon from '@components/ui/Icon.astro';
+
+interface Item {
+  icon?: string;
+  title: string;
+  desc: string;
+}
+interface Props {
+  items: Item[];
+  cols?: 2 | 3 | 4;
+}
+const { items, cols = 3 } = Astro.props;
+---
+<ul class={`fgrid fgrid--${cols}`}>
+  {items.map((it) => (
+    <li class="fcard">
+      {it.icon && (
+        <span class="fcard__icon"><Icon name={it.icon} size={20} /></span>
+      )}
+      <h3 class="fcard__title">{it.title}</h3>
+      <p class="fcard__desc">{it.desc}</p>
+    </li>
+  ))}
+</ul>
+
+<style>
+  .fgrid {
+    display: grid;
+    gap: var(--space-5);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .fgrid--2 { grid-template-columns: repeat(2, 1fr); }
+  .fgrid--3 { grid-template-columns: repeat(3, 1fr); }
+  .fgrid--4 { grid-template-columns: repeat(4, 1fr); }
+
+  .fcard {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-6);
+  }
+  .fcard__icon {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-md);
+    background: var(--accent-soft);
+    color: var(--accent);
+    margin-bottom: var(--space-4);
+  }
+  .fcard__title { font-size: var(--fs-lg); margin: 0 0 var(--space-2); }
+  .fcard__desc { color: var(--muted); font-size: var(--fs-sm); line-height: 1.65; margin: 0; }
+
+  @media (max-width: 900px) {
+    .fgrid--3, .fgrid--4 { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 560px) {
+    .fgrid--2, .fgrid--3, .fgrid--4 { grid-template-columns: 1fr; }
+  }
+</style>

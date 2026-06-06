@@ -1,0 +1,11 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TestimonialsPage from '@components/pages/TestimonialsPage.astro';
+import { getLangFromUrl } from '@i18n/utils';
+import { pageMeta } from '@data/pageMeta';
+
+const m = pageMeta.testimonials[getLangFromUrl(Astro.url)];
+---
+<BaseLayout title={m.title} description={m.description}>
+  <TestimonialsPage />
+</BaseLayout>

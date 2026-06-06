@@ -1,0 +1,224 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import { OFFICES } from '@data/site';
+import PageHeader from '@components/ui/PageHeader.astro';
+import AwardFeature from '@components/sections/AwardFeature.astro';
+import Icon from '@components/ui/Icon.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'About JBS',
+    title: 'Two decades of tax expertise,',
+    accent: 'and a team that picks up the phone',
+    lead: 'JBS Corp is a bilingual tax and accounting firm serving individuals, families, and growing businesses in all 50 states — offering the financial insight usually reserved for the top 1%.',
+    missionTitle: 'Our Mission',
+    mission:
+      'To offer high-quality financial solutions that empower individuals and small businesses while contributing to the economic development of the community.',
+    visionTitle: 'Our Vision',
+    vision:
+      'To be recognized as the accounting and financial services firm of choice for individuals and businesses — and a place where our team can grow and succeed.',
+    stats: [
+      { value: '20+', label: 'Years of expertise' },
+      { value: 'All 50', label: 'States served' },
+      { value: '7,000+', label: 'Returns filed yearly' },
+      { value: '100%', label: 'Bilingual support' },
+    ],
+    valuesTitle: 'How we work',
+    valuesLead:
+      'Our job is to help you see that the financial life you want is within reach — and to offer real expertise in a friendly, approachable way.',
+    values: [
+      { t: 'Approachable', d: 'No jargon, no judgment. We meet you where you are.' },
+      { t: 'Expertise', d: 'Deep technical knowledge across personal and business tax.' },
+      { t: 'Authentic', d: 'Straight answers and honest guidance, every time.' },
+      { t: 'Bilingual', d: 'Fully fluent in English and Spanish — you’ll always feel understood.' },
+      { t: 'Motivating', d: 'We help you take the next step with confidence.' },
+      { t: 'Friendly', d: 'A team that actually answers the phone.' },
+    ],
+    officesTitle: 'Visit us',
+    officesLead: 'Two offices in the Merrimack Valley, serving clients nationwide.',
+  },
+  es: {
+    eyebrow: 'Sobre JBS',
+    title: 'Dos décadas de experiencia tributaria,',
+    accent: 'y un equipo que contesta el teléfono',
+    lead: 'JBS Corp es una firma bilingüe de impuestos y contabilidad al servicio de personas, familias y empresas en crecimiento en los 50 estados — ofreciendo la visión financiera normalmente reservada para el 1%.',
+    missionTitle: 'Nuestra Misión',
+    mission:
+      'Ofrecer soluciones financieras de alta calidad que empoderen a las personas y a las pequeñas empresas, contribuyendo al desarrollo económico de la comunidad.',
+    visionTitle: 'Nuestra Visión',
+    vision:
+      'Ser reconocidos como la firma de contabilidad y servicios financieros preferida por personas y empresas — y un lugar donde nuestro equipo pueda crecer y tener éxito.',
+    stats: [
+      { value: '20+', label: 'Años de experiencia' },
+      { value: 'Los 50', label: 'Estados atendidos' },
+      { value: '7,000+', label: 'Declaraciones al año' },
+      { value: '100%', label: 'Atención bilingüe' },
+    ],
+    valuesTitle: 'Cómo trabajamos',
+    valuesLead:
+      'Nuestro trabajo es ayudarte a ver que la vida financiera que deseas está a tu alcance — y ofrecer experiencia real de forma amable y cercana.',
+    values: [
+      { t: 'Cercanía', d: 'Sin tecnicismos ni juicios. Te encontramos donde estás.' },
+      { t: 'Experiencia', d: 'Profundo conocimiento técnico en impuestos personales y de empresas.' },
+      { t: 'Autenticidad', d: 'Respuestas claras y orientación honesta, siempre.' },
+      { t: 'Bilingüe', d: 'Totalmente fluidos en inglés y español — siempre te sentirás comprendido.' },
+      { t: 'Motivación', d: 'Te ayudamos a dar el siguiente paso con confianza.' },
+      { t: 'Amabilidad', d: 'Un equipo que de verdad contesta el teléfono.' },
+    ],
+    officesTitle: 'Visítanos',
+    officesLead: 'Dos oficinas en el Merrimack Valley, atendiendo clientes en todo el país.',
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="about-mv">
+  <div class="container about-mv__grid">
+    <article class="about-card">
+      <h2>{copy.missionTitle}</h2>
+      <p>{copy.mission}</p>
+    </article>
+    <article class="about-card">
+      <h2>{copy.visionTitle}</h2>
+      <p>{copy.vision}</p>
+    </article>
+  </div>
+</section>
+
+<section class="about-stats">
+  <div class="container">
+    <dl class="about-stats__row">
+      {copy.stats.map((s) => (
+        <div class="about-stats__item">
+          <dt>{s.value}</dt>
+          <dd>{s.label}</dd>
+        </div>
+      ))}
+    </dl>
+  </div>
+</section>
+
+<section class="about-values">
+  <div class="container">
+    <div class="about-values__head">
+      <h2>{copy.valuesTitle}</h2>
+      <p>{copy.valuesLead}</p>
+    </div>
+    <ul class="about-values__grid">
+      {copy.values.map((v) => (
+        <li class="about-value">
+          <span class="about-value__icon"><Icon name="check-circle" size={18} /></span>
+          <div>
+            <h3>{v.t}</h3>
+            <p>{v.d}</p>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<AwardFeature />
+
+<section class="about-offices">
+  <div class="container">
+    <div class="about-offices__head">
+      <h2>{copy.officesTitle}</h2>
+      <p>{copy.officesLead}</p>
+    </div>
+    <div class="about-offices__grid">
+      {OFFICES.map((o) => (
+        <article class="about-office">
+          <h3><Icon name="map-pin" size={16} /> {o.city}</h3>
+          <p>{o.street}<br />{o.region}</p>
+          <a href={o.phoneHref}><Icon name="phone" size={14} /> {o.phone}</a>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  section { padding-block: var(--space-9); }
+
+  .about-mv { background: var(--bg-alt); }
+  .about-mv__grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+  .about-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-7);
+  }
+  .about-card h2 { font-size: var(--fs-xl); margin: 0 0 var(--space-3); }
+  .about-card p { color: var(--muted); line-height: 1.7; margin: 0; }
+
+  .about-stats { background: var(--surface); }
+  .about-stats__row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(var(--space-5), 5vw, var(--space-8));
+    margin: 0;
+    text-align: center;
+  }
+  .about-stats__item dt {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: var(--fs-2xl);
+    color: var(--heading);
+    line-height: 1;
+  }
+  .about-stats__item dd { margin: var(--space-2) 0 0; color: var(--muted); font-size: var(--fs-sm); font-weight: 500; }
+
+  .about-values { background: var(--bg-alt); }
+  .about-values__head { max-width: 640px; margin: 0 auto var(--space-7); text-align: center; }
+  .about-values__head h2 { font-size: var(--fs-2xl); margin: 0 0 var(--space-3); }
+  .about-values__head p { color: var(--muted); line-height: 1.7; margin: 0; }
+  .about-values__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-5);
+  }
+  .about-value {
+    display: flex;
+    gap: var(--space-3);
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-5);
+  }
+  .about-value__icon { color: var(--accent); flex-shrink: 0; }
+  .about-value h3 { font-size: var(--fs-lg); margin: 0 0 0.25rem; }
+  .about-value p { color: var(--muted); font-size: var(--fs-sm); line-height: 1.6; margin: 0; }
+
+  .about-offices { background: var(--surface); }
+  .about-offices__head { max-width: 640px; margin: 0 auto var(--space-7); text-align: center; }
+  .about-offices__head h2 { font-size: var(--fs-2xl); margin: 0 0 var(--space-3); }
+  .about-offices__head p { color: var(--muted); margin: 0; }
+  .about-offices__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+    max-width: 760px;
+    margin-inline: auto;
+  }
+  .about-office {
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    padding: var(--space-6);
+  }
+  .about-office h3 { display: flex; align-items: center; gap: 0.4rem; font-size: var(--fs-lg); margin: 0 0 var(--space-3); }
+  .about-office h3 :global(svg) { color: var(--accent); }
+  .about-office p { color: var(--muted); line-height: 1.6; margin: 0 0 var(--space-3); }
+  .about-office a { display: inline-flex; align-items: center; gap: 0.4rem; color: var(--accent); font-weight: 600; }
+
+  @media (max-width: 760px) {
+    .about-mv__grid,
+    .about-values__grid,
+    .about-offices__grid { grid-template-columns: 1fr; }
+  }
+</style>

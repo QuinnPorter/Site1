@@ -1,0 +1,11 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import BlogIndexPage from '@components/pages/BlogIndexPage.astro';
+import { getLangFromUrl } from '@i18n/utils';
+import { pageMeta } from '@data/pageMeta';
+
+const m = pageMeta.blog[getLangFromUrl(Astro.url)];
+---
+<BaseLayout title={m.title} description={m.description}>
+  <BlogIndexPage />
+</BaseLayout>

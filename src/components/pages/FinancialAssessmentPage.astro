@@ -1,0 +1,68 @@
+---
+import { getLangFromUrl } from '@i18n/utils';
+import { EXTERNAL } from '@data/site';
+import PageHeader from '@components/ui/PageHeader.astro';
+import FeatureGrid from '@components/ui/FeatureGrid.astro';
+import Button from '@components/ui/Button.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Financial Assessment',
+    title: 'A clear read on where',
+    accent: 'you stand — for free',
+    lead: 'Not sure what to fix first? Sit down with a bilingual advisor for a free, no-pressure review of your taxes and finances, and leave with a plan for the next step.',
+    getTitle: 'What you walk away with',
+    get: [
+      { icon: 'check-circle', title: 'An honest snapshot', desc: 'A plain-English read on your current tax and financial position.' },
+      { icon: 'trending-up', title: 'Opportunities', desc: 'Deductions, credits, and structure changes that could save you money.' },
+      { icon: 'shield', title: 'Risk check', desc: 'Where you may be exposed — missed filings, notices, or compliance gaps.' },
+      { icon: 'file', title: 'A next step', desc: 'A simple, prioritized plan — no obligation to go further.' },
+    ],
+    ctaTitle: 'Ready when you are',
+    ctaLead: 'The assessment is free and there is no commitment. Pick a time that works.',
+    cta: 'Book an Appointment',
+  },
+  es: {
+    eyebrow: 'Evaluación Financiera',
+    title: 'Una visión clara de dónde',
+    accent: 'estás — gratis',
+    lead: '¿No sabes qué resolver primero? Reúnete con un asesor bilingüe para una revisión gratuita y sin presión de tus impuestos y finanzas, y sal con un plan para el siguiente paso.',
+    getTitle: 'Con qué te quedas',
+    get: [
+      { icon: 'check-circle', title: 'Un panorama honesto', desc: 'Una lectura clara de tu situación tributaria y financiera actual.' },
+      { icon: 'trending-up', title: 'Oportunidades', desc: 'Deducciones, créditos y cambios de estructura que podrían ahorrarte dinero.' },
+      { icon: 'shield', title: 'Revisión de riesgos', desc: 'Dónde podrías estar expuesto — declaraciones faltantes, avisos o vacíos de cumplimiento.' },
+      { icon: 'file', title: 'Un siguiente paso', desc: 'Un plan simple y priorizado — sin obligación de continuar.' },
+    ],
+    ctaTitle: 'Cuando estés listo',
+    ctaLead: 'La evaluación es gratuita y sin compromiso. Elige el horario que te convenga.',
+    cta: 'Reservar una Cita',
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="svcsec">
+  <div class="container">
+    <h2 class="svcsec__title">{copy.getTitle}</h2>
+    <FeatureGrid items={copy.get} cols={4} />
+  </div>
+</section>
+
+<section class="svcsec svcsec--alt">
+  <div class="container fa-cta">
+    <h2>{copy.ctaTitle}</h2>
+    <p>{copy.ctaLead}</p>
+    <Button href={EXTERNAL.booking} external size="lg">{copy.cta}</Button>
+  </div>
+</section>
+
+<style>
+  .svcsec { padding-block: var(--space-9); background: var(--surface); }
+  .svcsec--alt { background: var(--bg-alt); }
+  .svcsec__title { font-size: var(--fs-2xl); text-align: center; margin: 0 0 var(--space-7); }
+  .fa-cta { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-4); }
+  .fa-cta h2 { font-size: var(--fs-2xl); margin: 0; }
+  .fa-cta p { color: var(--muted); margin: 0; max-width: 46ch; }
+</style>

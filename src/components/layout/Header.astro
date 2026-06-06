@@ -52,7 +52,7 @@ const isActive = (href: string, external?: boolean) =>
       </nav>
 
       <div class="header__actions">
-        <Button href={resolve(navCta.href)} size="sm">{t('nav.bookCta')}</Button>
+        <Button href={resolve(navCta.href, navCta.external)} external={navCta.external} size="sm">{t('nav.bookCta')}</Button>
       </div>
 
       <button class="header__burger" aria-label={t('common.menu')} aria-expanded="false" aria-controls="mobile-menu">
@@ -86,7 +86,7 @@ const isActive = (href: string, external?: boolean) =>
         ))}
       </nav>
       <div class="mobile__foot">
-        <Button href={resolve(navCta.href)} class="mobile__cta">{t('nav.bookCta')}</Button>
+        <Button href={resolve(navCta.href, navCta.external)} external={navCta.external} class="mobile__cta">{t('nav.bookCta')}</Button>
         <LanguagePicker />
       </div>
     </div>

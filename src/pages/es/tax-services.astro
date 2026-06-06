@@ -1,0 +1,11 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import TaxServicesPage from '@components/pages/TaxServicesPage.astro';
+import { getLangFromUrl } from '@i18n/utils';
+import { pageMeta } from '@data/pageMeta';
+
+const m = pageMeta.taxServices[getLangFromUrl(Astro.url)];
+---
+<BaseLayout title={m.title} description={m.description}>
+  <TaxServicesPage />
+</BaseLayout>

@@ -1,6 +1,5 @@
 ---
 import { getLangFromUrl, alternatePath } from '@i18n/utils';
-import Icon from '@components/ui/Icon.astro';
 
 interface Props {
   variant?: 'dark' | 'light';
@@ -10,28 +9,86 @@ const lang = getLangFromUrl(Astro.url);
 const enHref = lang === 'en' ? Astro.url.pathname : alternatePath(Astro.url, 'en');
 const esHref = lang === 'es' ? Astro.url.pathname : alternatePath(Astro.url, 'es');
 ---
-<div class={`langpicker langpicker--${variant}`} role="group" aria-label="Language">
-  <Icon name="globe" size={15} />
-  <a href={enHref} aria-current={lang === 'en' ? 'true' : undefined} class={lang === 'en' ? 'is-active' : ''}>EN</a>
-  <span class="sep" aria-hidden="true">/</span>
-  <a href={esHref} aria-current={lang === 'es' ? 'true' : undefined} class={lang === 'es' ? 'is-active' : ''}>ES</a>
+<div
+  class={`langslider langslider--${variant} ${lang === 'es' ? 'is-es' : 'is-en'}`}
+  role="group"
+  aria-label="Language"
+>
+  <span class="langslider__thumb" aria-hidden="true"></span>
+  <a
+    href={enHref}
+    class="langslider__opt"
+    aria-current={lang === 'en' ? 'true' : undefined}
+    lang="en"
+  >EN</a>
+  <a
+    href={esHref}
+    class="langslider__opt"
+    aria-current={lang === 'es' ? 'true' : undefined}
+    lang="es"
+  >ES</a>
 </div>
 
 <style>
-  .langpicker {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: var(--fs-sm);
-    font-weight: 600;
+  .langslider {
+    --thumb-w: 36px;
+    --thumb-pad: 3px;
+    position: relative;
+    display: inline-grid;
+    grid-template-columns: var(--thumb-w) var(--thumb-w);
+    align-items: stretch;
+    padding: var(--thumb-pad);
+    border-radius: var(--radius-pill);
+    font-size: var(--fs-xs);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    user-select: none;
   }
-  .langpicker a {
-    color: inherit;
-    opacity: 0.6;
-    transition: opacity var(--dur) var(--ease);
-    padding: 0.1rem 0.15rem;
+
+  /* Dark variant — utility bar */
+  .langslider--dark {
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.16);
   }
-  .langpicker a:hover { opacity: 1; }
-  .langpicker a.is-active { opacity: 1; text-decoration: underline; text-underline-offset: 3px; }
-  .sep { opacity: 0.4; }
+  .langslider--dark .langslider__opt { color: rgba(255, 255, 255, 0.65); }
+  .langslider--dark .langslider__opt[aria-current='true'] { color: var(--heading); }
+  .langslider--dark .langslider__thumb { background: #fff; box-shadow: var(--shadow-sm); }
+
+  /* Light variant — mobile drawer footer */
+  .langslider--light {
+    background: var(--bg-alt);
+    border: 1px solid var(--line);
+  }
+  .langslider--light .langslider__opt { color: var(--muted); }
+  .langslider--light .langslider__opt[aria-current='true'] { color: #fff; }
+  .langslider--light .langslider__thumb { background: var(--accent); }
+
+  .langslider__opt {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    padding: 0.35rem 0;
+    text-decoration: none;
+    transition: color var(--dur) var(--ease);
+  }
+  .langslider__opt:hover:not([aria-current='true']) { color: inherit; opacity: 0.9; }
+
+  .langslider__thumb {
+    position: absolute;
+    top: var(--thumb-pad);
+    left: var(--thumb-pad);
+    width: var(--thumb-w);
+    height: calc(100% - calc(var(--thumb-pad) * 2));
+    border-radius: var(--radius-pill);
+    transition: transform var(--dur) var(--ease);
+    will-change: transform;
+  }
+  .langslider.is-es .langslider__thumb { transform: translateX(var(--thumb-w)); }
+
+  :focus-visible.langslider__opt { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: var(--radius-pill); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .langslider__thumb { transition: none; }
+  }
 </style>

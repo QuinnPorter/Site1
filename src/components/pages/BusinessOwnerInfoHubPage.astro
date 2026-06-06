@@ -1,0 +1,73 @@
+---
+import { getLangFromUrl, localizePath } from '@i18n/utils';
+import PageHeader from '@components/ui/PageHeader.astro';
+import FeatureGrid from '@components/ui/FeatureGrid.astro';
+import Button from '@components/ui/Button.astro';
+
+const lang = getLangFromUrl(Astro.url);
+const copy = {
+  en: {
+    eyebrow: 'Business Owner Hub',
+    title: 'Straight answers for',
+    accent: 'running a business',
+    lead: 'Plain-English guidance on the things business owners actually ask about — from setting up your entity to keeping clean books and planning for taxes.',
+    topicsTitle: 'Start with the basics',
+    topics: [
+      { icon: 'briefcase', title: 'Choosing your entity', desc: 'LLC, S-corp, or C-corp — what each means for taxes, liability, and paperwork.' },
+      { icon: 'calculator', title: 'Bookkeeping foundations', desc: 'What to track from day one so tax season is calm instead of chaotic.' },
+      { icon: 'users', title: 'Payroll & contractors', desc: 'W-2 vs 1099, deadlines, and staying compliant as you hire.' },
+      { icon: 'trending-up', title: 'Tax planning', desc: 'Quarterly estimates, deductions, and year-end moves that lower your bill.' },
+      { icon: 'file', title: 'Recordkeeping', desc: 'What to keep, for how long, and how to stay audit-ready.' },
+      { icon: 'shield', title: 'Avoiding pitfalls', desc: 'The common mistakes that cost owners money — and how to sidestep them.' },
+    ],
+    articlesTitle: 'Read the latest',
+    articlesLead: 'Practical articles on deadlines, deductions, and planning.',
+    articlesCta: 'Browse articles',
+    bookCta: 'Talk to an advisor',
+  },
+  es: {
+    eyebrow: 'Centro para Empresarios',
+    title: 'Respuestas claras para',
+    accent: 'manejar un negocio',
+    lead: 'Orientación en lenguaje claro sobre lo que los dueños de negocios realmente preguntan — desde formar tu empresa hasta llevar libros limpios y planificar impuestos.',
+    topicsTitle: 'Empieza por lo básico',
+    topics: [
+      { icon: 'briefcase', title: 'Elegir tu entidad', desc: 'LLC, S-corp o C-corp — qué significa cada una para impuestos, responsabilidad y trámites.' },
+      { icon: 'calculator', title: 'Fundamentos de contabilidad', desc: 'Qué registrar desde el día uno para que la temporada de impuestos sea tranquila.' },
+      { icon: 'users', title: 'Nómina y contratistas', desc: 'W-2 vs 1099, fechas límite y cumplimiento a medida que contratas.' },
+      { icon: 'trending-up', title: 'Planificación fiscal', desc: 'Estimados trimestrales, deducciones y movimientos de fin de año que reducen tu factura.' },
+      { icon: 'file', title: 'Registros', desc: 'Qué guardar, por cuánto tiempo y cómo estar listo para una auditoría.' },
+      { icon: 'shield', title: 'Evitar errores', desc: 'Los errores comunes que cuestan dinero a los dueños — y cómo evitarlos.' },
+    ],
+    articlesTitle: 'Lee lo más reciente',
+    articlesLead: 'Artículos prácticos sobre fechas límite, deducciones y planificación.',
+    articlesCta: 'Ver artículos',
+    bookCta: 'Habla con un asesor',
+  },
+}[lang];
+---
+<PageHeader eyebrow={copy.eyebrow} title={copy.title} accent={copy.accent} lead={copy.lead} />
+
+<section class="svcsec">
+  <div class="container">
+    <h2 class="svcsec__title">{copy.topicsTitle}</h2>
+    <FeatureGrid items={copy.topics} cols={3} />
+  </div>
+</section>
+
+<section class="svcsec svcsec--alt">
+  <div class="container hub-cta">
+    <h2>{copy.articlesTitle}</h2>
+    <p>{copy.articlesLead}</p>
+    <Button href={localizePath('/blog', lang)} size="lg">{copy.articlesCta}</Button>
+  </div>
+</section>
+
+<style>
+  .svcsec { padding-block: var(--space-9); background: var(--surface); }
+  .svcsec--alt { background: var(--bg-alt); }
+  .svcsec__title { font-size: var(--fs-2xl); text-align: center; margin: 0 0 var(--space-7); }
+  .hub-cta { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-4); }
+  .hub-cta h2 { font-size: var(--fs-2xl); margin: 0; }
+  .hub-cta p { color: var(--muted); margin: 0; }
+</style>
